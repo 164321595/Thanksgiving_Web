@@ -1502,27 +1502,6 @@
         }
       });
 
-      // 内容形式切换
-      const contentTypeRadios = document.querySelectorAll(
-        'input[name="contentType"]'
-      );
-      const imageUpload = document.getElementById("imageUpload");
-      const audioUpload = document.getElementById("audioUpload");
-
-      contentTypeRadios.forEach((radio) => {
-        radio.addEventListener("change", () => {
-          if (radio.value === "image") {
-            imageUpload.classList.remove("hidden");
-            audioUpload.classList.add("hidden");
-          } else if (radio.value === "audio") {
-            imageUpload.classList.add("hidden");
-            audioUpload.classList.remove("hidden");
-          } else {
-            imageUpload.classList.add("hidden");
-            audioUpload.classList.add("hidden");
-          }
-        });
-      });
     </script>
 
     <!-- 故事上传 -->
@@ -1743,7 +1722,6 @@
 
     <!-- 感恩画廊 -->
     <script>
-      // 感恩画廊
 (function() {
   // 图片上传功能实现
   const galleryImageUpload = document.getElementById("galleryImageUpload");
@@ -2201,5 +2179,112 @@
             }
         }
     </style>
+    <script>
+    // 监听内容形式选择
+    document.querySelectorAll('input[name="contentType"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === 'image') {
+                document.getElementById('imageUpload').classList.remove('hidden');
+            } else {
+                document.getElementById('imageUpload').classList.add('hidden');
+                document.getElementById('imagePreview').classList.add('hidden');
+            }
+        });
+    });
+
+    // 监听图片上传
+    document.getElementById('imageFile').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                document.getElementById('previewImg').src = event.target.result;
+                document.getElementById('imagePreview').classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('gratitudeForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // 获取表单数据
+        const recipient = document.getElementById('recipient').value;
+        const title = document.getElementById('title').value;
+        const content = document.getElementById('content').value;
+        const imageFile = document.getElementById('imageFile').files[0];
+        const contentType = document.querySelector('input[name="contentType"]:checked').value;
+
+        // 隐藏表单
+        document.getElementById('formArea').style.display = 'none';
+
+        // 生成贺卡内容
+        let imageHtml = '';
+        if (contentType === 'image' && imageFile) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                imageHtml = `
+                    <div class="mt-6 rounded-xl overflow-hidden shadow-lg">
+                        <img src="${event.target.result}" alt="${title}" class="w-full h-auto">
+                    </div>
+                `;
+                
+                // 显示贺卡
+                const cardHtml = `
+                    <div class="bg-white p-10 rounded-3xl shadow-2xl md:col-span-2">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-2xl font-bold">${title}</h3>
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                <i class="fa fa-heart text-primary text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-200 pt-6">
+                            <div class="flex items-center mb-6">
+                                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mr-3">
+                                    <i class="fa fa-user text-primary"></i>
+                                </div>
+                                <p class="text-gray-600 font-medium">感恩对象：${recipient}</p>
+                            </div>
+                            <div class="bg-gray-50 p-6 rounded-xl">
+                                <p class="text-gray-800 text-lg leading-relaxed">${content}</p>
+                            </div>
+                            ${imageHtml}
+                        </div>
+                    </div>
+                `;
+                
+                const formContainer = document.getElementById('formArea').parentNode;
+                formContainer.insertAdjacentHTML('beforeend', cardHtml);
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            // 纯文字贺卡
+            const cardHtml = `
+                <div class="bg-white p-10 rounded-3xl shadow-2xl md:col-span-2">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold">${title}</h3>
+                        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                            <i class="fa fa-heart text-primary text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-200 pt-6">
+                        <div class="flex items-center mb-6">
+                            <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mr-3">
+                                <i class="fa fa-user text-primary"></i>
+                            </div>
+                            <p class="text-gray-600 font-medium">感恩对象：${recipient}</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-xl">
+                            <p class="text-gray-800 text-lg leading-relaxed">${content}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            const formContainer = document.getElementById('formArea').parentNode;
+            formContainer.insertAdjacentHTML('beforeend', cardHtml);
+        }
+    });
+</script>
   </body>
 </html>
