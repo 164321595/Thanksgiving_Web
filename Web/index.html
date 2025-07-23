@@ -1,0 +1,2326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>蒲公英计划 | 感恩有“你”，砥砺前行</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#FF9F4A",
+                        secondary: "#4CD964",
+                        accent: "#FFD700",
+                        neutral: "#F8F9FA",
+                        dark: "#343A40",
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "system-ui", "sans-serif"],
+                    },
+                    animation: {
+                        float: "float 3s ease-in-out infinite",
+                        drift: "drift 8s linear infinite",
+                    },
+                    keyframes: {
+                        float: {
+                            "0%, 100%": {
+                                transform: "translateY(0)",
+                            },
+                            "50%": {
+                                transform: "translateY(-10px)",
+                            },
+                        },
+                        drift: {
+                            "0%": {
+                                transform: "translate(0, 0) rotate(0deg)",
+                            },
+                            "100%": {
+                                transform: "translate(100vw, 50vh) rotate(360deg)",
+                            },
+                        },
+                    },
+                },
+            },
+        };
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities { .content-auto { content-visibility: auto; } .text-shadow { text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); } .text-shadow-lg { text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08); } .bg-gradient-warm { background: linear-gradient(135deg,
+        #ff9f4a 0%, #ffd700 100%); } .bg-blur { backdrop-filter: blur(8px); } .puff-enter { animation: puff-in-center 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) both; } @keyframes puff-in-center { 0% { transform: scale(2); filter: blur(4px); opacity: 0;
+        } 100% { transform: scale(1); filter: blur(0); opacity: 1; } } .fade-in { animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both; } @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } } .slide-up { animation: slide-up 0.7s cubic-bezier(0.25,
+        0.46, 0.45, 0.94) both; } @keyframes slide-up { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } } }
+    </style>
+</head>
+
+<body class="bg-neutral text-dark antialiased">
+    <!-- 蒲公英背景装饰 -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="dandelion absolute w-6 h-6 bg-white/30 rounded-full shadow-md animate-drift" style="animation-delay: 0s; left: -5%; top: 10%"></div>
+        <div class="dandelion absolute w-4 h-4 bg-white/30 rounded-full shadow-md animate-drift" style="animation-delay: 2s; left: -5%; top: 20%"></div>
+        <div class="dandelion absolute w-5 h-5 bg-white/30 rounded-full shadow-md animate-drift" style="animation-delay: 4s; left: -5%; top: 30%"></div>
+        <div class="dandelion absolute w-3 h-3 bg-white/30 rounded-full shadow-md animate-drift" style="animation-delay: 6s; left: -5%; top: 40%"></div>
+        <div class="dandelion absolute w-7 h-7 bg-white/30 rounded-full shadow-md animate-drift" style="animation-delay: 8s; left: -5%; top: 50%"></div>
+        <div class="dandelion absolute w-4 h-4 bg-white/30 rounded-full shadow-md animate-drift" style="animation-delay: 10s; left: -5%; top: 60%"></div>
+        <div class="dandelion absolute w-6 h-6 bg-white/30 rounded-full shadow-md animate-drift" style="animation-delay: 12s; left: -5%; top: 70%"></div>
+        <div class="dandelion absolute w-3 h-3 bg-white/30 rounded-full shadow-md animate-drift" style="animation-delay: 14s; left: -5%; top: 80%"></div>
+    </div>
+
+    <!-- 导航栏 -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between bg-white/80 bg-blur rounded-b-lg shadow-sm">
+            <a href="#" class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full bg-gradient-warm flex items-center justify-center">
+                    <i class="fa fa-pagelines text-white text-xl"></i>
+                </div>
+                <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">蒲公英计划</span
+          >
+        </a>
+
+        <!-- 桌面导航 -->
+        <nav class="hidden md:flex items-center space-x-8">
+          <a
+            href="#home"
+            class="font-medium hover:text-primary transition-colors"
+            >首页</a
+          >
+          <a
+            href="#stories"
+            class="font-medium hover:text-primary transition-colors"
+            >感恩故事</a
+          >
+          <a
+            href="#ai-assistant"
+            class="font-medium hover:text-primary transition-colors"
+            >AI感恩助手</a
+          >
+          <a
+            href="#gallery"
+            class="font-medium hover:text-primary transition-colors"
+            >感恩画廊</a
+          >
+          <a
+            href="#create"
+            class="font-medium hover:text-primary transition-colors"
+            >表达感恩</a
+          >
+        </nav>
+
+        <!-- 移动端菜单按钮 -->
+        <button class="md:hidden text-dark text-xl" id="menuBtn">
+          <i class="fa fa-bars"></i>
+        </button>
+      </div>
+
+      <!-- 移动端导航菜单 -->
+      <div
+        class="md:hidden bg-white shadow-lg absolute w-full left-0 top-full transform -translate-y-full opacity-0 transition-all duration-300 pointer-events-none"
+        id="mobileMenu"
+      >
+        <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+          <a
+            href="#home"
+            class="font-medium py-2 hover:text-primary transition-colors"
+            >首页</a
+          >
+          <a
+            href="#stories"
+            class="font-medium py-2 hover:text-primary transition-colors"
+            >感恩故事</a
+          >
+          <a
+            href="#ai-assistant"
+            class="font-medium py-2 hover:text-primary transition-colors"
+            >AI感恩助手</a
+          >
+          <a
+            href="#gallery"
+            class="font-medium py-2 hover:text-primary transition-colors"
+            >感恩画廊</a
+          >
+          <a
+            href="#create"
+            class="font-medium py-2 hover:text-primary transition-colors"
+            >表达感恩</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <main class="relative z-10 pt-20">
+      <!-- 英雄区域 -->
+      <section
+        id="home"
+        class="min-h-[90vh] flex items-center relative overflow-hidden"
+      >
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 -z-10"
+        ></div>
+        <div class="container mx-auto px-4 py-16 md:py-24">
+          <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+              <h1
+                class="text-[clamp(2.5rem,5vw,4rem)] font-bold leading-tight text-shadow-lg"
+              >
+                <span class="block">感恩有“你”</span>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">砥砺前行</span
+                >
+              </h1>
+              <p class="text-lg md:text-xl text-gray-700 max-w-xl">
+                蒲公英计划，用技术传递感恩。在这里，你可以分享感恩故事、生成感恩内容、向重要的人表达谢意，让每一份感恩都像蒲公英种子一样，随风飘散，生根发芽。
+              </p>
+              <div class="flex flex-wrap gap-4">
+                <a
+                  href="#stories"
+                  class="px-8 py-3 bg-gradient-warm text-white font-medium rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                >
+                  探索感恩故事
+                </a>
+                <a
+                  href="#ai-assistant"
+                  class="px-8 py-3 bg-white text-primary border-2 border-primary font-medium rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all"
+                >
+                  使用AI助手
+                </a>
+              </div>
+            </div>
+            <div class="relative">
+              <div
+                class="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-xl opacity-70 animate-pulse"
+              ></div>
+              <img
+                src="https://picsum.photos/id/1056/600/600"
+                alt="蒲公英与感恩"
+                class="w-full h-auto rounded-2xl shadow-2xl animate-float"
+              />
+              <div
+                class="absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-lg puff-enter"
+              >
+                <div class="flex items-center space-x-3">
+                  <div
+                    class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center"
+                  >
+                    <i class="fa fa-heart text-primary text-xl"></i>
+                  </div>
+                  <div>
+                    <p class="font-bold">10,000+</p>
+                    <p class="text-sm text-gray-600">感恩故事已分享</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100">
+            <path
+              fill="#ffffff"
+              fill-opacity="1"
+              d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,100L1360,100C1280,100,1120,100,960,100C800,100,640,100,480,100C320,100,160,100,80,100L0,100Z"
+            ></path>
+          </svg>
+        </div>
+      </section>
+
+      <!-- 感恩故事区域 -->
+      <section id="stories" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">
+              感恩故事
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+              每一份感恩都值得被记录，每一个故事都有温暖的力量。分享你的感动瞬间，让爱传递。
+            </p>
+          </div>
+
+          <!-- 故事卡片展示区域 -->
+          <div
+            class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            id="storiesGrid"
+          >
+            <!-- 原有故事卡片 -->
+            <div
+              class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 group"
+            >
+              <div class="h-48 overflow-hidden">
+                <img
+                  src="https://picsum.photos/id/1005/600/400"
+                  alt="感恩父母"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex items-center mb-4">
+                  <img
+                    src="https://picsum.photos/id/1027/100/100"
+                    alt="用户头像"
+                    class="w-10 h-10 rounded-full"
+                  />
+                  <div class="ml-3">
+                    <h4 class="font-medium">李小明</h4>
+                    <p class="text-sm text-gray-500">感恩父母</p>
+                  </div>
+                </div>
+                <h3 class="font-bold text-lg mb-2">《深夜里的守候》</h3>
+                <p class="text-gray-600 mb-4">
+                  去年冬天生病住院，妈妈在病床边守了我三天三夜，寸步不离。她熬红的双眼和温热的粥，是我记忆中最温暖的画面...
+                </p>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-500">
+                    <i class="fa fa-calendar-o mr-1"></i> 2023-11-15
+                  </span>
+                <button class="text-primary hover:text-primary/80 font-medium transition-colors view-full-story">
+                    阅读全文 <i class="fa fa-arrow-right ml-1"></i>
+                  </button>
+        </div>
+        </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 group">
+            <div class="h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1012/600/400" alt="感恩老师" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+            </div>
+            <div class="p-6">
+                <div class="flex items-center mb-4">
+                    <img src="https://picsum.photos/id/1001/100/100" alt="用户头像" class="w-10 h-10 rounded-full" />
+                    <div class="ml-3">
+                        <h4 class="font-medium">张雨晴</h4>
+                        <p class="text-sm text-gray-500">感恩老师</p>
+                    </div>
+                </div>
+                <h3 class="font-bold text-lg mb-2">《改变命运的鼓励》</h3>
+                <p class="text-gray-600 mb-4">
+                    高二那年我成绩下滑，几乎要放弃学业。王老师发现后，每天放学后单独给我辅导，她的那句"你比自己想象的更优秀"，让我重新找回了信心...
+                </p>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-500">
+                    <i class="fa fa-calendar-o mr-1"></i> 2023-12-08
+                  </span>
+                    <button class="text-primary hover:text-primary/80 font-medium transition-colors view-full-story">
+                    阅读全文 <i class="fa fa-arrow-right ml-1"></i>
+                  </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 group">
+            <div class="h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1015/600/400" alt="感恩朋友" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+            </div>
+            <div class="p-6">
+                <div class="flex items-center mb-4">
+                    <img src="https://picsum.photos/id/1012/100/100" alt="用户头像" class="w-10 h-10 rounded-full" />
+                    <div class="ml-3">
+                        <h4 class="font-medium">王建国</h4>
+                        <p class="text-sm text-gray-500">感恩朋友</p>
+                    </div>
+                </div>
+                <h3 class="font-bold text-lg mb-2">《千里之外的支持》</h3>
+                <p class="text-gray-600 mb-4">
+                    创业失败负债累累，觉得人生黑暗无光。远在外地的朋友二话不说，把积蓄转给我让我东山再起。现在公司步入正轨，第一个要感谢的就是他...
+                </p>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-500">
+                    <i class="fa fa-calendar-o mr-1"></i> 2024-01-22
+                  </span>
+                    <button class="text-primary hover:text-primary/80 font-medium transition-colors view-full-story">
+                    阅读全文 <i class="fa fa-arrow-right ml-1"></i>
+                  </button>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- 故事上传区域 (默认隐藏) -->
+        <div id="storyUploadContainer" class="hidden mt-12 bg-neutral p-6 rounded-2xl max-w-3xl mx-auto">
+            <h3 class="text-xl font-bold mb-4 text-center">分享你的感恩故事</h3>
+            <form id="storyUploadForm">
+                <div class="mb-4">
+                    <label for="storyTitle" class="block text-gray-700 font-medium mb-1">故事标题</label
+                >
+                <input
+                  type="text"
+                  id="storyTitle"
+                  placeholder="给你的故事起个标题"
+                  class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                />
+              </div>
+
+              <div class="mb-4">
+                <label
+                  for="storyCategory"
+                  class="block text-gray-700 font-medium mb-1"
+                  >感恩类别</label
+                >
+                <select
+                  id="storyCategory"
+                  class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                >
+                  <option value="父母">感恩父母</option>
+                  <option value="老师">感恩老师</option>
+                  <option value="朋友">感恩朋友</option>
+                  <option value="陌生人">感恩陌生人</option>
+                  <option value="自然">感恩自然</option>
+                  <option value="其他">其他</option>
+                </select>
+              </div>
+
+              <div class="mb-4">
+                <label
+                  for="storyContent"
+                  class="block text-gray-700 font-medium mb-1"
+                  >故事内容</label
+                >
+                <textarea
+                  id="storyContent"
+                  rows="5"
+                  placeholder="分享你的感恩故事..."
+                  class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                ></textarea>
+              </div>
+
+              <div class="mb-4">
+                <label
+                  for="storyImage"
+                  class="block text-gray-700 font-medium mb-1"
+                  >故事配图 (可选)</label
+                >
+                <input
+                  type="file"
+                  id="storyImage"
+                  accept="image/*"
+                  class="hidden"
+                />
+                <label
+                  for="storyImage"
+                  class="block w-full px-4 py-2 text-center border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50"
+                >
+                  <i class="fa fa-image mr-1"></i> 点击上传故事配图
+                </label>
+                    <div id="storyImagePreview" class="hidden mt-2">
+                        <img id="previewStoryImg" src="" alt="故事配图预览" class="w-full h-auto rounded-lg" />
+                        <button type="button" id="removeStoryImg" class="mt-2 text-red-500 text-sm">
+                    <i class="fa fa-trash-o mr-1"></i> 移除图片
+                  </button>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="storyAuthor" class="block text-gray-700 font-medium mb-1">你的昵称</label
+                >
+                <input
+                  type="text"
+                  id="storyAuthor"
+                  placeholder="让大家知道这是你的故事"
+                  class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                />
+              </div>
+
+              <div class="flex justify-end">
+                <button
+                  type="button"
+                  id="cancelStoryUpload"
+                  class="mr-3 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  取消
+                </button>
+                <button
+                  type="submit"
+                  class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                >
+                  <i class="fa fa-paper-plane mr-1"></i> 发布故事
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- 展开/收起上传区域按钮 -->
+          <div class="text-center mt-12">
+            <button
+              id="toggleStoryUploadBtn"
+              class="inline-flex items-center px-6 py-3 border-2 border-primary text-primary font-medium rounded-full hover:bg-primary hover:text-white transition-colors"
+            >
+              <span id="storyBtnText">分享你的故事</span>
+              <i id="storyBtnIcon" class="fa fa-pencil ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI感恩助手区域 -->
+      <section id="ai-assistant" class="py-20 bg-neutral">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">
+              AI感恩助手“小蒲”
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+              不知道如何表达感恩？让AI助手“小蒲”帮你生成真挚动人的感恩话语，传递你的心意。
+            </p>
+          </div>
+
+          <div
+            class="bg-white rounded-2xl shadow-xl overflow-hidden max-w-4xl mx-auto"
+          >
+            <div class="bg-gradient-warm p-6 text-white">
+              <h3 class="text-xl font-bold">AI感恩助手对话</h3>
+              <p class="text-white/80">
+                输入你想感恩的人或事，“小蒲”会帮你生成合适的表达方式
+              </p>
+            </div>
+
+            <div class="p-6" id="chatContainer">
+              <!-- 聊天历史 -->
+              <div class="space-y-4" id="chatMessages">
+                <div
+                  class="flex items-start mb-4 slide-up"
+                  style="animation-delay: 0.2s"
+                >
+                  <div
+                    class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0"
+                  >
+                    <i class="fa fa-robot text-primary"></i>
+                  </div>
+                  <div
+                    class="ml-3 bg-gray-100 p-4 rounded-lg rounded-tl-none max-w-[80%]"
+                  >
+                    <p class="text-gray-800">
+                      你好！我是AI感恩助手“小蒲”，有什么想感谢的人或事，我可以帮你组织语言哦～
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 输入区域 -->
+              <div class="mt-6 flex items-center gap-3">
+                <input
+                  type="text"
+                  id="userInput"
+                  placeholder="输入你想感恩的人或事..."
+                  class="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                />
+                <button
+                  id="sendBtn"
+                  class="px-5 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                >
+                  <i class="fa fa-paper-plane mr-2"></i>发送
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-6 mt-12">
+            <div
+              class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
+            >
+              <div
+                class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4"
+              >
+                <i class="fa fa-pencil text-primary text-xl"></i>
+              </div>
+              <h4 class="font-bold text-lg mb-2">生成感恩文案</h4>
+              <p class="text-gray-600">
+                输入关键词，AI帮你生成个性化的感恩信件、贺卡内容或朋友圈文案。
+              </p>
+            </div>
+
+            <div
+              class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
+            >
+              <div
+                class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4"
+              >
+                <i class="fa fa-comments text-primary text-xl"></i>
+              </div>
+              <h4 class="font-bold text-lg mb-2">情感引导对话</h4>
+              <p class="text-gray-600">
+                通过多轮对话，帮你梳理情感，找到最想表达的感恩话语。
+              </p>
+            </div>
+
+            <div
+              class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
+            >
+              <div
+                class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4"
+              >
+                <i class="fa fa-paint-brush text-primary text-xl"></i>
+              </div>
+              <h4 class="font-bold text-lg mb-2">多风格选择</h4>
+              <p class="text-gray-600">
+                支持温馨、真挚、幽默、文艺等多种表达风格，满足不同场景需求。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 感恩画廊区域 -->
+      <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">
+              感恩画廊
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+              每一张照片都有一个故事，每一个故事都承载着一份感恩。上传你的照片，分享属于你的感动瞬间。
+            </p>
+          </div>
+
+          <!-- 画廊图片展示 -->
+          <div
+            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+            id="galleryGrid"
+          >
+            <div class="group relative overflow-hidden rounded-xl shadow-md">
+              <img
+                src="https://picsum.photos/id/1002/600/600"
+                alt="感恩父母的照片"
+                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
+              >
+                <div>
+                  <h4 class="text-white font-bold">妈妈的手</h4>
+                  <p class="text-white/80 text-sm">
+                    那双为我操劳了一辈子的手，是世界上最温暖的港湾
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-xl shadow-md">
+              <img
+                src="https://picsum.photos/id/1011/600/600"
+                alt="感恩老师的照片"
+                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
+              >
+                <div>
+                  <h4 class="text-white font-bold">毕业那年</h4>
+                  <p class="text-white/80 text-sm">
+                    老师在黑板上写下"未来可期"，这四个字至今激励着我前行
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-xl shadow-md">
+              <img
+                src="https://picsum.photos/id/1025/600/600"
+                alt="感恩朋友的照片"
+                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
+              >
+                <div>
+                  <h4 class="text-white font-bold">一起奋斗的日子</h4>
+                  <p class="text-white/80 text-sm">
+                    深夜办公室的泡面和鼓励，是我们共同的青春记忆
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-xl shadow-md">
+              <img
+                src="https://picsum.photos/id/1026/600/600"
+                alt="感恩自然的照片"
+                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
+              >
+                <div>
+                  <h4 class="text-white font-bold">山间晨雾</h4>
+                  <p class="text-white/80 text-sm">
+                    每次看到这样的美景，都会感恩大自然的馈赠
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-xl shadow-md">
+              <img
+                src="https://picsum.photos/id/1028/600/600"
+                alt="感恩宠物的照片"
+                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
+              >
+                <div>
+                  <h4 class="text-white font-bold">最忠实的伙伴</h4>
+                  <p class="text-white/80 text-sm">
+                    你永远不知道，一只宠物会给你的生活带来多少治愈和欢乐
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-xl shadow-md">
+              <img
+                src="https://picsum.photos/id/1029/600/600"
+                alt="感恩城市的照片"
+                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
+              >
+                <div>
+                  <h4 class="text-white font-bold">城市之光</h4>
+                  <p class="text-white/80 text-sm">
+                    在这座城市奋斗的第十年，感恩每一个机会和挑战
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-xl shadow-md">
+              <img
+                src="https://picsum.photos/id/1033/600/600"
+                alt="感恩志愿者的照片"
+                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
+              >
+                <div>
+                  <h4 class="text-white font-bold">温暖的传递</h4>
+                  <p class="text-white/80 text-sm">
+                    参与志愿活动，才明白付出比收获更让人幸福
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-xl shadow-md">
+              <img
+                src="https://picsum.photos/id/1036/600/600"
+                alt="感恩陌生人的照片"
+                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
+              >
+                <div>
+                  <h4 class="text-white font-bold">雨中的善意</h4>
+                  <p class="text-white/80 text-sm">
+                    陌生人为我撑起的那把伞，让我相信这个世界依然美好
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 图片上传区域 (默认隐藏) -->
+          <div
+            id="uploadContainer"
+            class="hidden mt-12 bg-neutral p-6 rounded-2xl max-w-3xl mx-auto"
+          >
+            <h3 class="text-xl font-bold mb-4 text-center">上传你的感恩照片</h3>
+            <div class="flex flex-col md:flex-row gap-4 items-center">
+              <div
+                class="flex-1 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center"
+              >
+                <input
+                  type="file"
+                  id="galleryImageUpload"
+                  accept="image/*"
+                  class="hidden"
+                />
+                <label
+                  for="galleryImageUpload"
+                  class="cursor-pointer text-primary hover:text-primary/80"
+                >
+                  <i class="fa fa-cloud-upload text-3xl mb-2"></i>
+                  <p>点击或拖拽图片到这里</p>
+                </label>
+                    <p class="text-sm text-gray-500 mt-2">
+                        支持 JPG、PNG 格式，最大 5MB
+                    </p>
+                </div>
+                <div class="w-full md:w-64">
+                    <div class="mb-3">
+                        <label for="galleryImageTitle" class="block text-gray-700 font-medium mb-1">照片标题</label
+                  >
+                  <input
+                    type="text"
+                    id="galleryImageTitle"
+                    placeholder="给照片起个名字"
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="galleryImageDesc"
+                    class="block text-gray-700 font-medium mb-1"
+                    >照片故事</label
+                  >
+                  <textarea
+                    id="galleryImageDesc"
+                    rows="2"
+                    placeholder="分享照片背后的故事"
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  ></textarea>
+                </div>
+                <button
+                  id="uploadImageBtn"
+                  class="w-full mt-3 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                >
+                  <i class="fa fa-upload mr-1"></i> 上传照片
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 图片预览区域 -->
+          <div id="uploadPreview" class="hidden mb-10 max-w-3xl mx-auto">
+            <div class="bg-white p-4 rounded-xl shadow-md">
+              <h4 class="font-medium mb-3 flex items-center">
+                <i class="fa fa-check-circle text-secondary mr-2"></i> 照片预览
+              </h4>
+              <div class="grid md:grid-cols-5 gap-4 items-center">
+                <div class="md:col-span-2">
+                  <img
+                    id="uploadedImagePreview"
+                    src=""
+                    alt="上传的照片"
+                    class="w-full h-auto rounded-lg shadow-sm"
+                  />
+                </div>
+                <div class="md:col-span-3">
+                  <h5 id="previewTitle" class="font-bold text-lg"></h5>
+                  <p id="previewDesc" class="text-gray-600 mt-1"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 展开/收起上传区域按钮 -->
+          <div class="text-center mt-12">
+            <button
+              id="toggleUploadBtn"
+              class="inline-flex items-center px-6 py-3 border-2 border-primary text-primary font-medium rounded-full hover:bg-primary hover:text-white transition-colors"
+            >
+              <span id="btnText">上传你的照片</span>
+              <i id="btnIcon" class="fa fa-upload ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+      <!-- 表达感恩区域 -->
+      <section
+        id="create"
+        class="py-20 bg-gradient-to-br from-primary/10 to-secondary/10"
+      >
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">
+              表达感恩
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+              用文字或图片记录你的感恩之情，分享给重要的人，或留在这个平台成为温暖的记忆。
+            </p>
+          </div>
+
+          <div class="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+              <div id="formArea">
+                <h3 class="text-xl font-bold mb-6">分享你的感恩</h3>
+
+                <form id="gratitudeForm" class="space-y-4">
+                  <div>
+                    <label
+                      for="recipient"
+                      class="block text-gray-700 font-medium mb-2"
+                      >感恩对象</label
+                    >
+                    <input
+                      type="text"
+                      id="recipient"
+                      placeholder="例如：父母、老师、朋友"
+                      class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      for="title"
+                      class="block text-gray-700 font-medium mb-2"
+                      >标题</label
+                    >
+                    <input
+                      type="text"
+                      id="title"
+                      placeholder="例如：《深夜里的守候》"
+                      class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      for="content"
+                      class="block text-gray-700 font-medium mb-2"
+                      >内容</label
+                    >
+                    <textarea
+                      id="content"
+                      rows="6"
+                      placeholder="分享你的感恩故事或话语..."
+                      class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    ></textarea>
+                  </div>
+
+                  <div>
+                    <label class="block text-gray-700 font-medium mb-2"
+                      >内容形式</label
+                    >
+                    <div class="flex space-x-4">
+                      <label class="inline-flex items-center">
+                        <input
+                          type="radio"
+                          name="contentType"
+                          value="text"
+                          checked
+                          class="form-radio text-primary"
+                        />
+                        <span class="ml-2">文字</span>
+                      </label>
+                        <label class="inline-flex items-center">
+                        <input
+                          type="radio"
+                          name="contentType"
+                          value="image"
+                          class="form-radio text-primary"
+                        />
+                        <span class="ml-2">图片</span>
+                      </label>
+                    </div>
+                </div>
+
+                <div id="imageUpload" class="hidden">
+                    <label class="block text-gray-700 font-medium mb-2">上传图片</label
+                    >
+                    <div
+                      class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center"
+                    >
+                      <input
+                        type="file"
+                        id="imageFile"
+                        accept="image/*"
+                        class="hidden"
+                      />
+                      <label
+                        for="imageFile"
+                        class="cursor-pointer text-primary hover:text-primary/80"
+                      >
+                        <i class="fa fa-cloud-upload mr-2"></i> 点击上传图片
+                      </label>
+                    <p class="text-sm text-gray-500 mt-2">
+                        支持 JPG、PNG 格式，最大 5MB
+                    </p>
+                </div>
+                <div id="imagePreview" class="hidden mt-4">
+                    <img id="previewImg" src="" alt="预览图片" class="w-full h-auto rounded-lg shadow-md" />
+                </div>
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-medium mb-2">是否公开</label
+                    >
+                    <div class="flex items-center">
+                      <input
+                        type="checkbox"
+                        id="isPublic"
+                        checked
+                        class="form-checkbox text-primary"
+                      />
+                      <span class="ml-2"
+                        >公开分享，让更多人看到你的感恩故事</span
+                      >
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    class="w-full px-6 py-3 bg-gradient-warm text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all"
+                  >
+                    发布感恩内容
+                  </button>
+                </form>
+              </div>
+
+              <div class="bg-neutral p-6 rounded-xl">
+                <h3 class="text-xl font-bold mb-4">表达感恩小提示</h3>
+                <div class="space-y-4">
+                  <div class="flex items-start">
+                    <div
+                      class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1"
+                    >
+                      <i class="fa fa-lightbulb-o text-primary"></i>
+                    </div>
+                    <div class="ml-3">
+                      <h4 class="font-medium">具体事例</h4>
+                      <p class="text-gray-600 text-sm">
+                        回忆具体的事件或细节，让你的感恩更真实动人。
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <div
+                      class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1"
+                    >
+                      <i class="fa fa-heart text-primary"></i>
+                    </div>
+                    <div class="ml-3">
+                      <h4 class="font-medium">情感真挚</h4>
+                      <p class="text-gray-600 text-sm">
+                        不必追求华丽的辞藻，真诚的表达更能打动人。
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <div
+                      class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1"
+                    >
+                      <i class="fa fa-pencil text-primary"></i>
+                    </div>
+                    <div class="ml-3">
+                      <h4 class="font-medium">及时表达</h4>
+                      <p class="text-gray-600 text-sm">
+                        不要让感恩的话语留在心里，及时说出来让对方知道。
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <div
+                      class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1"
+                    >
+                      <i class="fa fa-camera text-primary"></i>
+                    </div>
+                    <div class="ml-3">
+                      <h4 class="font-medium">图片选择</h4>
+                      <p class="text-gray-600 text-sm">
+                        选择有纪念意义的照片，能更直观地传递你的情感。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-8 bg-white p-4 rounded-lg shadow-sm">
+                  <h4 class="font-medium mb-3">感恩话语示例</h4>
+                  <p class="text-gray-600 italic">
+                    "感谢你在我最迷茫的时候给我指引，你的一句话让我重新找到了方向。这份感激，我会永远记在心里。"
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8">
+          <div>
+            <div class="flex items-center space-x-2 mb-4">
+              <div
+                class="w-10 h-10 rounded-full bg-gradient-warm flex items-center justify-center"
+              >
+                <i class="fa fa-pagelines text-white text-xl"></i>
+              </div>
+              <span class="text-xl font-bold">蒲公英计划</span>
+            </div>
+            <p class="text-gray-400">用技术传递感恩，让每一份感谢都有温度。</p>
+            <div class="flex space-x-4 mt-6">
+              <a
+                href="https://github.com/164321595"
+                class="text-gray-400 hover:text-white transition-colors"
+                target="_blank"
+              >
+                <i class="fa fa-github text-xl"></i>
+              </a>
+              <a
+                href="https://space.bilibili.com/386841039?spm_id_from=333.1007.0.0"
+                class="text-gray-400 hover:text-white transition-colors"
+                target="_blank"
+              >
+                <i class="fa text-xl">b站</i>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-bold mb-4">快速链接</h4>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#home"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >首页</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#stories"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >感恩故事</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#ai-assistant"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >AI感恩助手</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#gallery"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >感恩画廊</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#create"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >表达感恩</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-bold mb-4">关于我们</h4>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="https://github.com/164321595/Thanksgiving_Web"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  target="_blank"
+                  >项目介绍</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://space.bilibili.com/386841039?spm_id_from=333.1007.0.0"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  target="_blank"
+                  >独立制作</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-bold mb-4">订阅更新</h4>
+            <p class="text-gray-400 mb-4">
+              订阅我们的通讯，获取最新的感恩故事和活动信息。
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500"
+        >
+          <p>&copy; 2025 蒲公英计划 | 感恩有“你”，砥砺前行. 保留所有权利。</p>
+        </div>
+      </div>
+    </footer>
+    <!-- 回顶按钮 -->
+    <button
+      id="backToTop"
+      class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-warm flex items-center justify-center shadow-lg transform transition-all duration-300 opacity-0 translate-y-10 z-50"
+    >
+      <i class="fa fa-arrow-up text-white text-lg"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+      // 回顶按钮功能
+      const backToTopButton = document.getElementById("backToTop");
+
+      // 监听滚动事件
+      window.addEventListener("scroll", function () {
+        if (window.pageYOffset > 300) {
+          // 滚动超过300px时显示按钮
+          backToTopButton.classList.remove("opacity-0", "translate-y-10");
+          backToTopButton.classList.add("opacity-100", "translate-y-0");
+        } else {
+          // 滚动到顶部时隐藏按钮
+          backToTopButton.classList.remove("opacity-100", "translate-y-0");
+          backToTopButton.classList.add("opacity-0", "translate-y-10");
+        }
+      });
+
+      // 点击按钮返回顶部
+      backToTopButton.addEventListener("click", function () {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth", // 平滑滚动
+        });
+      });
+    </script>
+    <script>
+      // 导航栏滚动效果
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add("py-2", "shadow-md");
+          navbar.classList.remove("py-3");
+        } else {
+          navbar.classList.add("py-3");
+          navbar.classList.remove("py-2", "shadow-md");
+        }
+      });
+
+      // 移动端菜单
+      const menuBtn = document.getElementById("menuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      menuBtn.addEventListener("click", () => {
+        if (mobileMenu.classList.contains("opacity-0")) {
+          mobileMenu.classList.remove(
+            "opacity-0",
+            "-translate-y-full",
+            "pointer-events-none"
+          );
+          mobileMenu.classList.add(
+            "opacity-100",
+            "translate-y-0",
+            "pointer-events-auto"
+          );
+          menuBtn.innerHTML = '<i class="fa fa-times"></i>';
+        } else {
+          mobileMenu.classList.add(
+            "opacity-0",
+            "-translate-y-full",
+            "pointer-events-none"
+          );
+          mobileMenu.classList.remove(
+            "opacity-100",
+            "translate-y-0",
+            "pointer-events-auto"
+          );
+          menuBtn.innerHTML = '<i class="fa fa-bars"></i>';
+        }
+      });
+
+      // 平滑滚动
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute("href");
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: "smooth",
+            });
+
+            // 如果是移动端，点击后关闭菜单
+            if (!mobileMenu.classList.contains("opacity-0")) {
+              mobileMenu.classList.add(
+                "opacity-0",
+                "-translate-y-full",
+                "pointer-events-none"
+              );
+              mobileMenu.classList.remove(
+                "opacity-100",
+                "translate-y-0",
+                "pointer-events-auto"
+              );
+              menuBtn.innerHTML = '<i class="fa fa-bars"></i>';
+            }
+          }
+        });
+      });
+    </script>
+
+    <!--AI助手-->>
+    <script>
+      // AI助手聊天功能
+      const chatMessages = document.getElementById("chatMessages");
+      const userInput = document.getElementById("userInput");
+      const sendBtn = document.getElementById("sendBtn");
+
+      // 预设的AI回复模板
+      const aiResponses = [
+        "您对{recipient}的这份感恩之情非常动人。我为您生成了一段感恩的话：{content}",
+        "感受到了您满满的谢意！以下是一段适合表达您心情的话：{content}",
+        "您的感恩真挚而温暖，我帮您整理了一份更完整的表达：{content}",
+        "每一份感恩都值得被好好表达，这段文字或许能帮您传递心意：{content}",
+      ];
+
+      // 预设的感恩内容模板
+      const gratitudeTemplates = [
+        "感谢{recipient}在{场景}中给予我的{帮助/支持/陪伴}。{具体事例}，这份{情感}我会永远铭记。愿我们的{关系}，如同{比喻}，{美好祝愿}。",
+        "{recipient}，是您用{具体行为}让我{收获/成长/感受到}了{情感}。记得{具体事例}，那时的我{状态}，是您的{什么}让我{结果}。这份感激，言语难表，唯有{未来行动}。",
+        "在{时间/场景}里，{recipient}的{具体行为}如{比喻}般{效果}。{具体事例}，让我深刻体会到{感悟}。谢谢您，愿您的生活{美好祝愿}。",
+      ];
+
+      // 生成随机感恩内容
+      function generateGratitudeContent(recipient) {
+        const template =
+          gratitudeTemplates[
+            Math.floor(Math.random() * gratitudeTemplates.length)
+          ];
+
+        // 替换模板中的变量
+        let content = template.replace(/{recipient}/g, recipient);
+
+        // 随机填充其他变量
+        content = content.replace(
+          /{场景}/g,
+          [
+            "我最困难的时候",
+            "每一个重要的时刻",
+            "我迷茫无助的日子里",
+            "那些奋斗的岁月中",
+          ][Math.floor(Math.random() * 4)]
+        );
+
+        content = content.replace(
+          /{帮助\/支持\/陪伴}/g,
+          ["帮助", "支持", "陪伴", "鼓励", "引导"][
+            Math.floor(Math.random() * 5)
+          ]
+        );
+
+        content = content.replace(
+          /{具体事例}/g,
+          [
+            "您熬夜帮我修改方案，让我在重要的项目中获得成功",
+            "您耐心倾听我的烦恼，给我最中肯的建议",
+            "您在我生病时无微不至的照顾，让我感受到温暖",
+            "您一直以来的信任和支持，让我有勇气追求梦想",
+          ][Math.floor(Math.random() * 4)]
+        );
+
+        content = content.replace(
+          /{情感}/g,
+          ["温暖", "力量", "勇气", "希望", "信心"][
+            Math.floor(Math.random() * 5)
+          ]
+        );
+
+        content = content.replace(
+          /{关系}/g,
+          ["友谊", "师生情", "亲情", "合作关系"][Math.floor(Math.random() * 4)]
+        );
+
+        content = content.replace(
+          /{比喻}/g,
+          [
+            "春天的阳光，温暖而明亮",
+            "黑暗中的灯塔，指引方向",
+            "沙漠中的清泉，滋润心田",
+            "冬日的炉火，驱走寒冷",
+          ][Math.floor(Math.random() * 4)]
+        );
+
+        content = content.replace(
+          /{美好祝愿}/g,
+          [
+            "永远充满阳光和欢笑",
+            "一切顺遂，心想事成",
+            "被爱包围，幸福安康",
+            "生活如诗，每一天都精彩",
+          ][Math.floor(Math.random() * 4)]
+        );
+
+        content = content.replace(
+          /{具体行为}/g,
+          ["耐心的教导", "无私的奉献", "真诚的鼓励", "默默的支持"][
+            Math.floor(Math.random() * 4)
+          ]
+        );
+
+        content = content.replace(
+          /{什么}/g,
+          ["一句话", "一个眼神", "一个拥抱", "一次帮助"][
+            Math.floor(Math.random() * 4)
+          ]
+        );
+
+        content = content.replace(
+          /{收获\/成长\/感受到}/g,
+          ["收获了知识", "得到了成长", "感受到了温暖", "获得了力量"][
+            Math.floor(Math.random() * 4)
+          ]
+        );
+
+        content = content.replace(
+          /{状态}/g,
+          ["几乎要放弃", "不知所措", "迷茫无助", "心灰意冷"][
+            Math.floor(Math.random() * 4)
+          ]
+        );
+
+        content = content.replace(
+          /{结果}/g,
+          ["重新找回了信心", "有了前进的动力", "走出了困境", "看到了希望"][
+            Math.floor(Math.random() * 4)
+          ]
+        );
+
+        content = content.replace(
+          /{未来行动}/g,
+          [
+            "更加努力，不辜负您的期望",
+            "将这份温暖传递给更多的人",
+            "用行动来回报您的恩情",
+            "带着这份感激，勇敢前行",
+          ][Math.floor(Math.random() * 4)]
+        );
+
+        content = content.replace(
+          /{时间\/场景}/g,
+          [
+            "那些一起奋斗的日子",
+            "每一个重要的人生节点",
+            "我最需要帮助的时候",
+            "生活的点点滴滴中",
+          ][Math.floor(Math.random() * 4)]
+        );
+
+        content = content.replace(
+          /{效果}/g,
+          [
+            "照亮了我的前行道路",
+            "给了我无尽的力量",
+            "温暖了我的心灵",
+            "让我重新振作起来",
+          ][Math.floor(Math.random() * 4)]
+        );
+
+        content = content.replace(
+          /{感悟}/g,
+          [
+            "人间自有真情在",
+            "帮助他人就是帮助自己",
+            "友谊的珍贵",
+            "爱的力量是无穷的",
+          ][Math.floor(Math.random() * 4)]
+        );
+
+        return content;
+      }
+
+      // 发送消息
+      function sendMessage() {
+        const message = userInput.value.trim();
+        if (!message) return;
+
+        // 添加用户消息
+        const userMessageHtml = `
+                <div class="flex items-start justify-end mb-4 slide-up">
+                    <div class="bg-primary text-white p-4 rounded-lg rounded-tr-none max-w-[80%]">
+                        <p>${message}</p>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0 ml-3">
+                        <i class="fa fa-user text-gray-500"></i>
+                    </div>
+                </div>
+            `;
+        chatMessages.innerHTML += userMessageHtml;
+
+        // 清空输入框
+        userInput.value = "";
+
+        // 滚动到底部
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // 显示"正在思考"状态
+        const thinkingHtml = `
+                <div class="flex items-start mb-4 slide-up">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <i class="fa fa-robot text-primary"></i>
+                    </div>
+                    <div class="ml-3 bg-gray-100 p-4 rounded-lg rounded-tl-none max-w-[80%]">
+                        <p class="text-gray-800">
+                            <span class="inline-block animate-pulse">...</span>
+                        </p>
+                    </div>
+                </div>
+            `;
+        chatMessages.innerHTML += thinkingHtml;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // 模拟AI回复延迟
+        setTimeout(() => {
+          // 移除"正在思考"状态
+          const thinkingElement = chatMessages.lastElementChild;
+          chatMessages.removeChild(thinkingElement);
+
+          // 生成AI回复
+          const responseTemplate =
+            aiResponses[Math.floor(Math.random() * aiResponses.length)];
+          const gratitudeContent = generateGratitudeContent(message);
+          const aiResponse = responseTemplate
+            .replace("{recipient}", message)
+            .replace("{content}", gratitudeContent);
+
+          // 添加AI回复
+          const aiMessageHtml = `
+                    <div class="flex items-start mb-4 slide-up">
+                        <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <i class="fa fa-robot text-primary"></i>
+                        </div>
+                        <div class="ml-3 bg-gray-100 p-4 rounded-lg rounded-tl-none max-w-[80%]">
+                            <p class="text-gray-800">${aiResponse}</p>
+                        </div>
+                    </div>
+                `;
+          chatMessages.innerHTML += aiMessageHtml;
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 1500);
+      }
+
+      // 发送按钮点击事件
+      sendBtn.addEventListener("click", sendMessage);
+
+      // 回车键发送消息
+      userInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          sendMessage();
+        }
+      });
+
+      // 内容形式切换
+      const contentTypeRadios = document.querySelectorAll(
+        'input[name="contentType"]'
+      );
+      const imageUpload = document.getElementById("imageUpload");
+      const audioUpload = document.getElementById("audioUpload");
+
+      contentTypeRadios.forEach((radio) => {
+        radio.addEventListener("change", () => {
+          if (radio.value === "image") {
+            imageUpload.classList.remove("hidden");
+            audioUpload.classList.add("hidden");
+          } else if (radio.value === "audio") {
+            imageUpload.classList.add("hidden");
+            audioUpload.classList.remove("hidden");
+          } else {
+            imageUpload.classList.add("hidden");
+            audioUpload.classList.add("hidden");
+          }
+        });
+      });
+    </script>
+
+    <!-- 故事上传 -->
+    <script>
+      // 故事上传功能实现
+      const storyUploadContainer = document.getElementById(
+        "storyUploadContainer"
+      );
+      const toggleStoryUploadBtn = document.getElementById(
+        "toggleStoryUploadBtn"
+      );
+      const storyBtnText = document.getElementById("storyBtnText");
+      const storyBtnIcon = document.getElementById("storyBtnIcon");
+      const storyUploadForm = document.getElementById("storyUploadForm");
+      const storyImage = document.getElementById("storyImage");
+      const storyImagePreview = document.getElementById("storyImagePreview");
+      const previewStoryImg = document.getElementById("previewStoryImg");
+      const removeStoryImg = document.getElementById("removeStoryImg");
+      const storiesGrid = document.getElementById("storiesGrid");
+      const cancelStoryUpload = document.getElementById("cancelStoryUpload");
+
+      let isStoryUploadVisible = false;
+      let storyImageFile = null;
+
+      // 展开/收起故事上传区域
+      function toggleStoryUploadArea() {
+        isStoryUploadVisible = !isStoryUploadVisible;
+
+        if (isStoryUploadVisible) {
+          storyUploadContainer.classList.remove("hidden");
+          storyBtnText.textContent = "收起发布框";
+          storyBtnIcon.classList.remove("fa-pencil");
+          storyBtnIcon.classList.add("fa-chevron-up");
+        } else {
+          storyUploadContainer.classList.add("hidden");
+          storyBtnText.textContent = "分享你的故事";
+          storyBtnIcon.classList.remove("fa-chevron-up");
+          storyBtnIcon.classList.add("fa-pencil");
+        }
+      }
+
+      // 绑定展开/收起按钮事件
+      toggleStoryUploadBtn.addEventListener("click", toggleStoryUploadArea);
+
+      // 绑定取消按钮事件
+      cancelStoryUpload.addEventListener("click", function () {
+        storyUploadForm.reset();
+        storyImageFile = null;
+        storyImagePreview.classList.add("hidden");
+        toggleStoryUploadArea();
+      });
+
+      // 监听故事配图上传
+      storyImage.addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (file) {
+          storyImageFile = file;
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            previewStoryImg.src = event.target.result;
+            storyImagePreview.classList.remove("hidden");
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // 移除故事配图
+      removeStoryImg.addEventListener("click", function () {
+        storyImage.value = "";
+        storyImageFile = null;
+        storyImagePreview.classList.add("hidden");
+      });
+
+      // 故事表单提交
+      storyUploadForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const title = document.getElementById("storyTitle").value.trim();
+        const category = document.getElementById("storyCategory").value;
+        const content = document.getElementById("storyContent").value.trim();
+        const author =
+          document.getElementById("storyAuthor").value.trim() || "匿名用户";
+
+        if (!title) {
+          alert("请输入故事标题");
+          return;
+        }
+
+        if (!content) {
+          alert("请输入故事内容");
+          return;
+        }
+
+        // 生成随机用户头像
+        const randomAvatarId = Math.floor(Math.random() * 100);
+        const avatarUrl = `https://picsum.photos/id/${randomAvatarId}/100/100`;
+
+        // 生成随机故事图片（如果用户未上传）
+        let storyImgUrl = storyImageFile
+          ? URL.createObjectURL(storyImageFile)
+          : `https://picsum.photos/id/${
+              1000 + Math.floor(Math.random() * 30)
+            }/600/400`;
+
+        // 获取当前日期
+        const today = new Date();
+        const dateString =
+          today.getFullYear() +
+          "-" +
+          String(today.getMonth() + 1).padStart(2, "0") +
+          "-" +
+          String(today.getDate()).padStart(2, "0");
+
+        // 创建新的故事卡片
+        const newStoryCard = `
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 group animate-fade-in">
+                <div class="h-48 overflow-hidden">
+                    <img
+                        src="${storyImgUrl}"
+                        alt="${title}"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <img
+                            src="${avatarUrl}"
+                            alt="${author}头像"
+                            class="w-10 h-10 rounded-full"
+                        />
+                        <div class="ml-3">
+                            <h4 class="font-medium">${author}</h4>
+                            <p class="text-sm text-gray-500">感恩${category}</p>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">《${title}》</h3>
+                    <p class="text-gray-600 mb-4">
+                        ${
+                          content.length > 100
+                            ? content.substring(0, 100) + "..."
+                            : content
+                        }
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500">
+                            <i class="fa fa-calendar-o mr-1"></i> ${dateString}
+                        </span>
+                        <button class="text-primary hover:text-primary/80 font-medium transition-colors view-full-story">
+                            阅读全文 <i class="fa fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // 将新故事添加到最前面
+        storiesGrid.insertAdjacentHTML("afterbegin", newStoryCard);
+
+        // 重置表单
+        storyUploadForm.reset();
+        storyImageFile = null;
+        storyImagePreview.classList.add("hidden");
+
+        // 收起上传区域
+        toggleStoryUploadArea();
+
+        // 显示成功提示
+        alert("故事发布成功，感谢分享！");
+      });
+
+      // 添加淡入动画样式
+      const style = document.createElement("style");
+      style.textContent = `
+        @keyframes fade-in {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .animate-fade-in {
+            animation: fade-in 0.5s ease-out forwards;
+        }
+        #storyUploadContainer {
+            transition: all 0.3s ease-in-out;
+        }
+    `;
+      document.head.appendChild(style);
+
+      // 阅读全文功能
+      document.addEventListener("click", function (e) {
+        if (e.target.closest(".view-full-story")) {
+          const storyCard = e.target.closest(".group");
+          const title = storyCard.querySelector("h3").textContent;
+          const author = storyCard.querySelector(".font-medium").textContent;
+          const category =
+            storyCard.querySelector(".text-gray-500").textContent;
+          const date = storyCard.querySelector(
+            ".text-sm.text-gray-500"
+          ).textContent;
+          const imageUrl = storyCard.querySelector("img").src;
+          const shortContent =
+            storyCard.querySelector("p.text-gray-600").textContent;
+
+          // 在实际应用中，这里可以弹出模态框显示完整内容
+          // 这里简单地用alert模拟
+          alert(`
+                ${title}
+                
+                作者: ${author}
+                分类: ${category}
+                日期: ${date}
+                
+                ${shortContent.replace("...", "")}（内容省略）
+                
+                感谢阅读！
+            `);
+        }
+      });
+    </script>
+
+    <!-- 感恩画廊 -->
+    <script>
+      // 图片上传功能实现
+      const galleryImageUpload = document.getElementById("galleryImageUpload");
+      const galleryImageTitle = document.getElementById("galleryImageTitle");
+      const galleryImageDesc = document.getElementById("galleryImageDesc");
+      const uploadImageBtn = document.getElementById("uploadImageBtn");
+      const uploadPreview = document.getElementById("uploadPreview");
+      const uploadedImagePreview = document.getElementById(
+        "uploadedImagePreview"
+      );
+      const previewTitle = document.getElementById("previewTitle");
+      const previewDesc = document.getElementById("previewDesc");
+      const galleryGrid = document.getElementById("galleryGrid");
+      const uploadContainer = document.getElementById("uploadContainer");
+      const toggleUploadBtn = document.getElementById("toggleUploadBtn");
+      const btnText = document.getElementById("btnText");
+      const btnIcon = document.getElementById("btnIcon");
+
+      let selectedImage = null;
+      let isUploadVisible = false;
+
+      // 监听图片选择
+      galleryImageUpload.addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (file) {
+          selectedImage = file;
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            uploadedImagePreview.src = event.target.result;
+            uploadPreview.classList.remove("hidden");
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // 上传图片按钮点击事件
+      uploadImageBtn.addEventListener("click", function () {
+        if (!selectedImage) {
+          alert("请先选择一张图片");
+          return;
+        }
+
+        if (!galleryImageTitle.value.trim()) {
+          alert("请输入照片标题");
+          return;
+        }
+
+        // 创建新的图片卡片并添加到画廊
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const imageUrl = event.target.result;
+          const newImageCard = `
+                <div class="group relative overflow-hidden rounded-xl shadow-md animate-fade-in">
+                    <img
+                        src="${imageUrl}"
+                        alt="${galleryImageTitle.value}"
+                        class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
+                    >
+                        <div>
+                            <h4 class="text-white font-bold">${
+                              galleryImageTitle.value
+                            }</h4>
+                            <p class="text-white/80 text-sm">
+                                ${galleryImageDesc.value || "没有描述"}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+          // 将新图片添加到画廊开头
+          galleryGrid.insertAdjacentHTML("afterbegin", newImageCard);
+
+          // 重置表单
+          galleryImageUpload.value = "";
+          galleryImageTitle.value = "";
+          galleryImageDesc.value = "";
+          selectedImage = null;
+          uploadPreview.classList.add("hidden");
+
+          // 显示成功提示
+          alert("照片上传成功，已添加到你的感恩画廊！");
+
+          // 上传成功后收起上传区域
+          toggleUploadArea();
+        };
+        reader.readAsDataURL(selectedImage);
+      });
+
+      // 展开/收起上传区域
+      function toggleUploadArea() {
+        isUploadVisible = !isUploadVisible;
+
+        if (isUploadVisible) {
+          uploadContainer.classList.remove("hidden");
+          btnText.textContent = "收起上传区域";
+          btnIcon.classList.remove("fa-upload");
+          btnIcon.classList.add("fa-chevron-up");
+        } else {
+          uploadContainer.classList.add("hidden");
+          btnText.textContent = "上传你的照片";
+          btnIcon.classList.remove("fa-chevron-up");
+          btnIcon.classList.add("fa-upload");
+        }
+      }
+
+      // 绑定展开/收起按钮事件
+      toggleUploadBtn.addEventListener("click", toggleUploadArea);
+
+      // 添加拖拽上传功能
+      const dropArea = document.querySelector(
+        'label[for="galleryImageUpload"]'
+      ).parentElement;
+
+      ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+      });
+
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      ["dragenter", "dragover"].forEach((eventName) => {
+        dropArea.addEventListener(eventName, highlight, false);
+      });
+
+      ["dragleave", "drop"].forEach((eventName) => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+      });
+
+      function highlight() {
+        dropArea.classList.add("border-primary");
+        dropArea.classList.add("bg-primary/5");
+      }
+
+      function unhighlight() {
+        dropArea.classList.remove("border-primary");
+        dropArea.classList.remove("bg-primary/5");
+      }
+
+      dropArea.addEventListener("drop", handleDrop, false);
+
+      function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const file = dt.files[0];
+
+        if (file && file.type.startsWith("image/")) {
+          selectedImage = file;
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            uploadedImagePreview.src = event.target.result;
+            uploadPreview.classList.remove("hidden");
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+
+      // 添加淡入动画样式
+      const style = document.createElement("style");
+      style.textContent = `
+        @keyframes fade-in {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .animate-fade-in {
+            animation: fade-in 0.5s ease-out forwards;
+        }
+        #uploadContainer {
+            transition: all 0.3s ease-in-out;
+        }
+    `;
+      document.head.appendChild(style);
+
+      // 页面加载时初始化画廊（保留原有图片）
+      window.addEventListener("load", function () {
+        // 这里可以添加代码从本地存储或服务器加载已保存的图片
+        // 目前示例中保留了原有图片的HTML结构
+      });
+    </script>
+
+    <!-- 表达感恩卡片 -->
+    <script>
+      // 监听内容形式选择
+      document
+        .querySelectorAll('input[name="contentType"]')
+        .forEach((radio) => {
+          radio.addEventListener("change", function () {
+            if (this.value === "image") {
+              document.getElementById("imageUpload").classList.remove("hidden");
+            } else {
+              document.getElementById("imageUpload").classList.add("hidden");
+              document.getElementById("imagePreview").classList.add("hidden");
+            }
+          });
+        });
+
+      // 监听图片上传
+      document
+        .getElementById("imageFile")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              document.getElementById("previewImg").src = event.target.result;
+              document
+                .getElementById("imagePreview")
+                .classList.remove("hidden");
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+      document
+        .getElementById("gratitudeForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // 获取表单数据
+          const recipient = document.getElementById("recipient").value;
+          const title = document.getElementById("title").value;
+          const content = document.getElementById("content").value;
+          const imageFile = document.getElementById("imageFile").files[0];
+          const contentType = document.querySelector(
+            'input[name="contentType"]:checked'
+          ).value;
+
+          // 隐藏表单
+          document.getElementById("formArea").style.display = "none";
+
+          // 生成贺卡内容
+          let imageHtml = "";
+          if (contentType === "image" && imageFile) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              imageHtml = `
+                    <div class="mt-6 rounded-xl overflow-hidden shadow-lg">
+                        <img src="${event.target.result}" alt="${title}" class="w-full h-auto">
+                    </div>
+                `;
+
+              // 显示贺卡
+              const cardHtml = `
+                    <div class="bg-white p-10 rounded-3xl shadow-2xl md:col-span-2">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-2xl font-bold">${title}</h3>
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                <i class="fa fa-heart text-primary text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-200 pt-6">
+                            <div class="flex items-center mb-6">
+                                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mr-3">
+                                    <i class="fa fa-user text-primary"></i>
+                                </div>
+                                <p class="text-gray-600 font-medium">感恩对象：${recipient}</p>
+                            </div>
+                            <div class="bg-gray-50 p-6 rounded-xl">
+                                <p class="text-gray-800 text-lg leading-relaxed">${content}</p>
+                            </div>
+                            ${imageHtml}
+                        </div>
+                    </div>
+                `;
+
+              const formContainer =
+                document.getElementById("formArea").parentNode;
+              formContainer.insertAdjacentHTML("beforeend", cardHtml);
+            };
+            reader.readAsDataURL(imageFile);
+          } else {
+            // 纯文字贺卡
+            const cardHtml = `
+                <div class="bg-white p-10 rounded-3xl shadow-2xl md:col-span-2">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold">${title}</h3>
+                        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                            <i class="fa fa-heart text-primary text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-200 pt-6">
+                        <div class="flex items-center mb-6">
+                            <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mr-3">
+                                <i class="fa fa-user text-primary"></i>
+                            </div>
+                            <p class="text-gray-600 font-medium">感恩对象：${recipient}</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-xl">
+                            <p class="text-gray-800 text-lg leading-relaxed">${content}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const formContainer =
+              document.getElementById("formArea").parentNode;
+            formContainer.insertAdjacentHTML("beforeend", cardHtml);
+          }
+        });
+    </script>
+
+    <!--图标-->>
+    <script>
+      // 在页面加载时生成与导航栏图标一致的favicon
+      document.addEventListener("DOMContentLoaded", function () {
+        // 创建canvas元素绘制图标
+        const canvas = document.createElement("canvas");
+        canvas.width = 32; // favicon标准尺寸
+        canvas.height = 32;
+        const ctx = canvas.getContext("2d");
+
+        // 创建渐变背景（与导航栏图标一致的渐变色）
+        const gradient = ctx.createLinearGradient(0, 0, 32, 32);
+        gradient.addColorStop(0, "#FF9F4A");
+        gradient.addColorStop(1, "#FFD700");
+
+        // 绘制圆角矩形背景
+        ctx.beginPath();
+        const radius = 6; // 圆角大小（对应原样式的rounded-lg）
+        ctx.moveTo(radius, 0);
+        ctx.lineTo(32 - radius, 0);
+        ctx.arcTo(32, 0, 32, radius, radius);
+        ctx.lineTo(32, 32 - radius);
+        ctx.arcTo(32, 32, 32 - radius, 32, radius);
+        ctx.lineTo(radius, 32);
+        ctx.arcTo(0, 32, 0, 32 - radius, radius);
+        ctx.lineTo(0, radius);
+        ctx.arcTo(0, 0, radius, 0, radius);
+        ctx.closePath();
+        ctx.fillStyle = gradient;
+        ctx.fill();
+
+        // 加载Font Awesome字体
+        const link = document.createElement("link");
+        link.href =
+          "https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css";
+        link.rel = "stylesheet";
+        document.head.appendChild(link);
+
+        // 确保字体加载完成后绘制图标
+        setTimeout(() => {
+          ctx.fillStyle = "white"; // 图标颜色
+          ctx.font = '18px "FontAwesome"'; // 使用Font Awesome字体
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("\uf18c", 16, 16); // \uf18c对应fa-pagelines图标
+
+          // 将canvas转换为图片并设置为favicon
+          const favicon = document.createElement("link");
+          favicon.rel = "icon";
+          favicon.type = "image/png";
+          favicon.href = canvas.toDataURL("image/png");
+
+          // 替换现有favicon（如果有）或添加新的
+          const existingFavicon = document.querySelector('link[rel="icon"]');
+          if (existingFavicon) {
+            existingFavicon.parentNode.replaceChild(favicon, existingFavicon);
+          } else {
+            document.head.appendChild(favicon);
+          }
+        }, 200); // 稍等片刻确保字体加载完成
+      });
+    </script>
+
+    </script>
+    <!-- AI咨询按钮 -->
+    <button id="ai-assistant-toggle" class="fixed w-12 h-12 rounded-full bottom-4 left-4 bg-primary text-white shadow-lg flex items-center justify-center hover:bg-primary/90 transition-custom z-50">
+      <i class="fa fa-comments text-xl"></i>
+    </button>
+
+    <!-- AI咨询窗口 -->
+    <div id="ai-assistant-window" class="fixed bottom-20 left-4 bg-white rounded-xl shadow-lg border border-gray-100 hidden w-80 z-50">
+        <!-- 窗口标题栏 -->
+        <div class="p-4 border-b border-gray-100 bg-primary/5">
+            <h3 class="text-lg font-semibold text-primary flex items-center">
+                <i class="fa fa-robot mr-2"></i>AI助手
+            </h3>
+        </div>
+
+        <!-- 聊天内容显示区域 -->
+        <div id="ai-chat-container" class="p-4 h-64 overflow-y-auto space-y-4">
+            <!-- 初始欢迎消息 -->
+            <div class="flex">
+                <div class="chat-bubble-ai">
+                    您好！我是感恩AI助手，有任何关于学生感恩的问题都可以问我~
+                </div>
+            </div>
+        </div>
+
+        <!-- 输入区域 -->
+        <div class="p-4 border-t border-gray-100">
+            <input type="text" id="ai-input" placeholder="请输入您的问题..." class="border border-gray-200 p-2.5 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-custom" />
+
+            <!-- 按钮区域（发送在右，关闭在左） -->
+            <div class="flex justify-between mt-3">
+                <button id="ai-assistant-close" class="text-neutral hover:text-primary transition-custom flex items-center text-sm">
+            <i class="fa fa-times mr-1"></i> 关闭
+          </button>
+                <button id="ai-send" class="bg-primary text-white px-4 py-1.5 rounded-lg hover:bg-primary/90 transition-custom flex items-center text-sm">
+            发送 <i class="fa fa-paper-plane ml-1"></i>
+          </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const aiAssistantToggle = document.getElementById("ai-assistant-toggle");
+        const aiAssistantWindow = document.getElementById("ai-assistant-window");
+        const aiAssistantClose = document.getElementById("ai-assistant-close");
+        const aiInput = document.getElementById("ai-input");
+        const aiSend = document.getElementById("ai-send");
+        const aiChatContainer = document.getElementById("ai-chat-container");
+
+        // 切换窗口显示/隐藏
+        aiAssistantToggle.addEventListener("click", () => {
+            aiAssistantWindow.classList.toggle("hidden");
+        });
+
+        // 关闭窗口
+        aiAssistantClose.addEventListener("click", () => {
+            aiAssistantWindow.classList.add("hidden");
+        });
+
+        // 发送消息
+        aiSend.addEventListener("click", sendMessage);
+
+        // 支持回车键发送
+        aiInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") sendMessage();
+        });
+
+        function sendMessage() {
+            const question = aiInput.value.trim();
+            if (!question) return;
+
+            // 显示用户消息
+            const userDiv = document.createElement("div");
+            userDiv.className = "flex justify-end";
+            userDiv.innerHTML = `<div class="chat-bubble-user">${question}</div>`;
+            aiChatContainer.appendChild(userDiv);
+
+            // 清空输入框并滚动到底部
+            aiInput.value = "";
+            aiChatContainer.scrollTop = aiChatContainer.scrollHeight;
+
+            // 显示加载状态
+            const loadingDiv = document.createElement("div");
+            loadingDiv.className = "flex";
+            loadingDiv.innerHTML = `
+      <div class="typing-indicator">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    `;
+            aiChatContainer.appendChild(loadingDiv);
+            aiChatContainer.scrollTop = aiChatContainer.scrollHeight;
+
+            // 调用DeepSeek API（请替换为实际接口信息）
+            callDeepSeekAPI(question, loadingDiv);
+        }
+
+        // DeepSeek API调用函数（预留接口）
+        async function callDeepSeekAPI(question, loadingDiv) {
+            try {
+                // 替换为你的API密钥和接口地址
+                const API_KEY = "sk-f5f27d052fd0436fa6132a1d2d60894c";
+                const API_URL = "https://api.deepseek.com/v1/chat/completions";
+
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${API_KEY}`,
+                    },
+                    body: JSON.stringify({
+                        model: "deepseek-chat", // 根据实际模型名称调整
+                        messages: [{
+                            role: "system",
+                            content: "你是学生感恩咨询专家，需准确解答各类相关问题，语言简洁易懂。",
+                        }, {
+                            role: "user",
+                            content: question,
+                        }, ],
+                        temperature: 0.7,
+                    }),
+                });
+
+                const data = await response.json();
+                const answer = data.choices[0].message.content;
+
+                // 移除加载状态，显示AI回复
+                aiChatContainer.removeChild(loadingDiv);
+                const aiDiv = document.createElement("div");
+                aiDiv.className = "flex";
+                aiDiv.innerHTML = `<div class="chat-bubble-ai">${answer}</div>`;
+                aiChatContainer.appendChild(aiDiv);
+            } catch (error) {
+                // 错误处理
+                aiChatContainer.removeChild(loadingDiv);
+                const errorDiv = document.createElement("div");
+                errorDiv.className = "flex";
+                errorDiv.innerHTML = `<div class="chat-bubble-ai text-red-500">
+        抱歉，暂时无法获取回复，请稍后再试。
+      </div>`;
+                aiChatContainer.appendChild(errorDiv);
+                console.error("DeepSeek API调用失败:", error);
+            }
+
+            // 滚动到底部
+            aiChatContainer.scrollTop = aiChatContainer.scrollHeight;
+        }
+    </script>
+
+    <style>
+        /* 聊天气泡样式 */
+        
+        .chat-bubble-user {
+            background-color: #165dff;
+            color: white;
+            border-radius: 16px 16px 0 16px;
+            max-width: 80%;
+            padding: 8px 12px;
+            margin-bottom: 4px;
+        }
+        
+        .chat-bubble-ai {
+            background-color: #f0f2f5;
+            color: #1d2939;
+            border-radius: 16px 16px 16px 0;
+            max-width: 80%;
+            padding: 8px 12px;
+            margin-bottom: 4px;
+        }
+        /* 输入框聚焦样式 */
+        
+        #ai-input:focus {
+            box-shadow: 0 0 0 2px rgba(22, 93, 255, 0.2);
+        }
+        /* 打字动画 */
+        
+        .typing-indicator {
+            padding: 8px 12px;
+            background-color: #f0f2f5;
+            border-radius: 16px 16px 16px 0;
+        }
+        
+        .typing-indicator span {
+            height: 5px;
+            width: 5px;
+            margin: 0 1px;
+            background-color: #165dff;
+            border-radius: 50%;
+            display: inline-block;
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        
+        .typing-indicator span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+        
+        @keyframes typing {
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+    </style>
+  </body>
+</html>
