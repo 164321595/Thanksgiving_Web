@@ -1743,308 +1743,187 @@
 
     <!-- 感恩画廊 -->
     <script>
-      // 图片上传功能实现
-      const galleryImageUpload = document.getElementById("galleryImageUpload");
-      const galleryImageTitle = document.getElementById("galleryImageTitle");
-      const galleryImageDesc = document.getElementById("galleryImageDesc");
-      const uploadImageBtn = document.getElementById("uploadImageBtn");
-      const uploadPreview = document.getElementById("uploadPreview");
-      const uploadedImagePreview = document.getElementById(
-        "uploadedImagePreview"
-      );
-      const previewTitle = document.getElementById("previewTitle");
-      const previewDesc = document.getElementById("previewDesc");
-      const galleryGrid = document.getElementById("galleryGrid");
-      const uploadContainer = document.getElementById("uploadContainer");
-      const toggleUploadBtn = document.getElementById("toggleUploadBtn");
-      const btnText = document.getElementById("btnText");
-      const btnIcon = document.getElementById("btnIcon");
+      // 感恩画廊
+(function() {
+  // 图片上传功能实现
+  const galleryImageUpload = document.getElementById("galleryImageUpload");
+  const galleryImageTitle = document.getElementById("galleryImageTitle");
+  const galleryImageDesc = document.getElementById("galleryImageDesc");
+  const uploadImageBtn = document.getElementById("uploadImageBtn");
+  const uploadPreview = document.getElementById("uploadPreview");
+  const uploadedImagePreview = document.getElementById("uploadedImagePreview");
+  const galleryGrid = document.getElementById("galleryGrid");
+  const uploadContainer = document.getElementById("uploadContainer");
+  const toggleUploadBtn = document.getElementById("toggleUploadBtn");
+  const btnText = document.getElementById("btnText");
+  const btnIcon = document.getElementById("btnIcon");
 
-      let selectedImage = null;
-      let isUploadVisible = false;
+  let selectedImage = null;
+  let isUploadVisible = false;
 
-      // 监听图片选择
-      galleryImageUpload.addEventListener("change", function (e) {
-        const file = e.target.files[0];
-        if (file) {
-          selectedImage = file;
-          const reader = new FileReader();
-          reader.onload = function (event) {
-            uploadedImagePreview.src = event.target.result;
-            uploadPreview.classList.remove("hidden");
-          };
-          reader.readAsDataURL(file);
-        }
-      });
-
-      // 上传图片按钮点击事件
-      uploadImageBtn.addEventListener("click", function () {
-        if (!selectedImage) {
-          alert("请先选择一张图片");
-          return;
-        }
-
-        if (!galleryImageTitle.value.trim()) {
-          alert("请输入照片标题");
-          return;
-        }
-
-        // 创建新的图片卡片并添加到画廊
-        const reader = new FileReader();
-        reader.onload = function (event) {
-          const imageUrl = event.target.result;
-          const newImageCard = `
-                <div class="group relative overflow-hidden rounded-xl shadow-md animate-fade-in">
-                    <img
-                        src="${imageUrl}"
-                        alt="${galleryImageTitle.value}"
-                        class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
-                    >
-                        <div>
-                            <h4 class="text-white font-bold">${
-                              galleryImageTitle.value
-                            }</h4>
-                            <p class="text-white/80 text-sm">
-                                ${galleryImageDesc.value || "没有描述"}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-          // 将新图片添加到画廊开头
-          galleryGrid.insertAdjacentHTML("afterbegin", newImageCard);
-
-          // 重置表单
-          galleryImageUpload.value = "";
-          galleryImageTitle.value = "";
-          galleryImageDesc.value = "";
-          selectedImage = null;
-          uploadPreview.classList.add("hidden");
-
-          // 显示成功提示
-          alert("照片上传成功，已添加到你的感恩画廊！");
-
-          // 上传成功后收起上传区域
-          toggleUploadArea();
-        };
-        reader.readAsDataURL(selectedImage);
-      });
-
-      // 展开/收起上传区域
-      function toggleUploadArea() {
-        isUploadVisible = !isUploadVisible;
-
-        if (isUploadVisible) {
-          uploadContainer.classList.remove("hidden");
-          btnText.textContent = "收起上传区域";
-          btnIcon.classList.remove("fa-upload");
-          btnIcon.classList.add("fa-chevron-up");
-        } else {
-          uploadContainer.classList.add("hidden");
-          btnText.textContent = "上传你的照片";
-          btnIcon.classList.remove("fa-chevron-up");
-          btnIcon.classList.add("fa-upload");
-        }
+  // 添加淡入动画样式（只添加一次）
+  if (!document.getElementById('gallery-animation-style')) {
+    const galleryStyle = document.createElement("style");
+    galleryStyle.id = 'gallery-animation-style';
+    galleryStyle.textContent = `
+      @keyframes fade-in {
+          0% { opacity: 0; transform: scale(0.9); }
+          100% { opacity: 1; transform: scale(1); }
       }
-
-      // 绑定展开/收起按钮事件
-      toggleUploadBtn.addEventListener("click", toggleUploadArea);
-
-      // 添加拖拽上传功能
-      const dropArea = document.querySelector(
-        'label[for="galleryImageUpload"]'
-      ).parentElement;
-
-      ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
-        dropArea.addEventListener(eventName, preventDefaults, false);
-      });
-
-      function preventDefaults(e) {
-        e.preventDefault();
-        e.stopPropagation();
+      .animate-fade-in {
+          animation: fade-in 0.5s ease-out forwards;
       }
-
-      ["dragenter", "dragover"].forEach((eventName) => {
-        dropArea.addEventListener(eventName, highlight, false);
-      });
-
-      ["dragleave", "drop"].forEach((eventName) => {
-        dropArea.addEventListener(eventName, unhighlight, false);
-      });
-
-      function highlight() {
-        dropArea.classList.add("border-primary");
-        dropArea.classList.add("bg-primary/5");
+      #uploadContainer {
+          transition: all 0.3s ease-in-out;
       }
-
-      function unhighlight() {
-        dropArea.classList.remove("border-primary");
-        dropArea.classList.remove("bg-primary/5");
-      }
-
-      dropArea.addEventListener("drop", handleDrop, false);
-
-      function handleDrop(e) {
-        const dt = e.dataTransfer;
-        const file = dt.files[0];
-
-        if (file && file.type.startsWith("image/")) {
-          selectedImage = file;
-          const reader = new FileReader();
-          reader.onload = function (event) {
-            uploadedImagePreview.src = event.target.result;
-            uploadPreview.classList.remove("hidden");
-          };
-          reader.readAsDataURL(file);
-        }
-      }
-
-      // 添加淡入动画样式
-      const style = document.createElement("style");
-      style.textContent = `
-        @keyframes fade-in {
-            0% { opacity: 0; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-        .animate-fade-in {
-            animation: fade-in 0.5s ease-out forwards;
-        }
-        #uploadContainer {
-            transition: all 0.3s ease-in-out;
-        }
     `;
-      document.head.appendChild(style);
+    document.head.appendChild(galleryStyle);
+  }
 
-      // 页面加载时初始化画廊（保留原有图片）
-      window.addEventListener("load", function () {
-        // 这里可以添加代码从本地存储或服务器加载已保存的图片
-        // 目前示例中保留了原有图片的HTML结构
-      });
-    </script>
+  // 监听图片选择
+  galleryImageUpload.addEventListener("change", function (e) {
+    const file = e.target.files[0];
+    if (file) {
+      selectedImage = file;
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        uploadedImagePreview.src = event.target.result;
+        uploadPreview.classList.remove("hidden");
+      };
+      reader.readAsDataURL(file);
+    }
+  });
 
-    <!-- 表达感恩卡片 -->
-    <script>
-      // 监听内容形式选择
-      document
-        .querySelectorAll('input[name="contentType"]')
-        .forEach((radio) => {
-          radio.addEventListener("change", function () {
-            if (this.value === "image") {
-              document.getElementById("imageUpload").classList.remove("hidden");
-            } else {
-              document.getElementById("imageUpload").classList.add("hidden");
-              document.getElementById("imagePreview").classList.add("hidden");
-            }
-          });
-        });
+  // 上传图片按钮点击事件
+  uploadImageBtn.addEventListener("click", function () {
+    if (!selectedImage) {
+      alert("请先选择一张图片");
+      return;
+    }
 
-      // 监听图片上传
-      document
-        .getElementById("imageFile")
-        .addEventListener("change", function (e) {
-          const file = e.target.files[0];
-          if (file) {
-            const reader = new FileReader();
-            reader.onload = function (event) {
-              document.getElementById("previewImg").src = event.target.result;
-              document
-                .getElementById("imagePreview")
-                .classList.remove("hidden");
-            };
-            reader.readAsDataURL(file);
-          }
-        });
+    if (!galleryImageTitle.value.trim()) {
+      alert("请输入照片标题");
+      return;
+    }
 
-      document
-        .getElementById("gratitudeForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          // 获取表单数据
-          const recipient = document.getElementById("recipient").value;
-          const title = document.getElementById("title").value;
-          const content = document.getElementById("content").value;
-          const imageFile = document.getElementById("imageFile").files[0];
-          const contentType = document.querySelector(
-            'input[name="contentType"]:checked'
-          ).value;
-
-          // 隐藏表单
-          document.getElementById("formArea").style.display = "none";
-
-          // 生成贺卡内容
-          let imageHtml = "";
-          if (contentType === "image" && imageFile) {
-            const reader = new FileReader();
-            reader.onload = function (event) {
-              imageHtml = `
-                    <div class="mt-6 rounded-xl overflow-hidden shadow-lg">
-                        <img src="${event.target.result}" alt="${title}" class="w-full h-auto">
-                    </div>
-                `;
-
-              // 显示贺卡
-              const cardHtml = `
-                    <div class="bg-white p-10 rounded-3xl shadow-2xl md:col-span-2">
-                        <div class="flex items-center justify-between mb-6">
-                            <h3 class="text-2xl font-bold">${title}</h3>
-                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                                <i class="fa fa-heart text-primary text-xl"></i>
-                            </div>
-                        </div>
-                        <div class="border-t border-gray-200 pt-6">
-                            <div class="flex items-center mb-6">
-                                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mr-3">
-                                    <i class="fa fa-user text-primary"></i>
-                                </div>
-                                <p class="text-gray-600 font-medium">感恩对象：${recipient}</p>
-                            </div>
-                            <div class="bg-gray-50 p-6 rounded-xl">
-                                <p class="text-gray-800 text-lg leading-relaxed">${content}</p>
-                            </div>
-                            ${imageHtml}
-                        </div>
-                    </div>
-                `;
-
-              const formContainer =
-                document.getElementById("formArea").parentNode;
-              formContainer.insertAdjacentHTML("beforeend", cardHtml);
-            };
-            reader.readAsDataURL(imageFile);
-          } else {
-            // 纯文字贺卡
-            const cardHtml = `
-                <div class="bg-white p-10 rounded-3xl shadow-2xl md:col-span-2">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-2xl font-bold">${title}</h3>
-                        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                            <i class="fa fa-heart text-primary text-xl"></i>
-                        </div>
-                    </div>
-                    <div class="border-t border-gray-200 pt-6">
-                        <div class="flex items-center mb-6">
-                            <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mr-3">
-                                <i class="fa fa-user text-primary"></i>
-                            </div>
-                            <p class="text-gray-600 font-medium">感恩对象：${recipient}</p>
-                        </div>
-                        <div class="bg-gray-50 p-6 rounded-xl">
-                            <p class="text-gray-800 text-lg leading-relaxed">${content}</p>
-                        </div>
+    // 创建新的图片卡片并添加到画廊
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      const imageUrl = event.target.result;
+      const newImageCard = `
+            <div class="group relative overflow-hidden rounded-xl shadow-md animate-fade-in">
+                <img
+                    src="${imageUrl}"
+                    alt="${galleryImageTitle.value}"
+                    class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
+                >
+                    <div>
+                        <h4 class="text-white font-bold">${
+                          galleryImageTitle.value
+                        }</h4>
+                        <p class="text-white/80 text-sm">
+                            ${galleryImageDesc.value || "没有描述"}
+                        </p>
                     </div>
                 </div>
-            `;
+            </div>
+        `;
 
-            const formContainer =
-              document.getElementById("formArea").parentNode;
-            formContainer.insertAdjacentHTML("beforeend", cardHtml);
-          }
-        });
+      // 将新图片添加到画廊开头
+      galleryGrid.insertAdjacentHTML("afterbegin", newImageCard);
+
+      // 重置表单
+      galleryImageUpload.value = "";
+      galleryImageTitle.value = "";
+      galleryImageDesc.value = "";
+      selectedImage = null;
+      uploadPreview.classList.add("hidden");
+
+      // 显示成功提示
+      alert("照片上传成功，已添加到你的感恩画廊！");
+
+      // 上传成功后收起上传区域
+      toggleUploadArea();
+    };
+    reader.readAsDataURL(selectedImage);
+  });
+
+  // 展开/收起上传区域
+  function toggleUploadArea() {
+    isUploadVisible = !isUploadVisible;
+
+    if (isUploadVisible) {
+      uploadContainer.classList.remove("hidden");
+      btnText.textContent = "收起上传区域";
+      btnIcon.classList.remove("fa-upload");
+      btnIcon.classList.add("fa-chevron-up");
+    } else {
+      uploadContainer.classList.add("hidden");
+      btnText.textContent = "上传你的照片";
+      btnIcon.classList.remove("fa-chevron-up");
+      btnIcon.classList.add("fa-upload");
+    }
+  }
+
+  // 绑定展开/收起按钮事件
+  toggleUploadBtn.addEventListener("click", toggleUploadArea);
+
+  // 添加拖拽上传功能
+  const dropArea = document.querySelector('label[for="galleryImageUpload"]').parentElement;
+
+  ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+    dropArea.addEventListener(eventName, preventDefaults, false);
+  });
+
+  function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  ["dragenter", "dragover"].forEach((eventName) => {
+    dropArea.addEventListener(eventName, highlight, false);
+  });
+
+  ["dragleave", "drop"].forEach((eventName) => {
+    dropArea.addEventListener(eventName, unhighlight, false);
+  });
+
+  function highlight() {
+    dropArea.classList.add("border-primary");
+    dropArea.classList.add("bg-primary/5");
+  }
+
+  function unhighlight() {
+    dropArea.classList.remove("border-primary");
+    dropArea.classList.remove("bg-primary/5");
+  }
+
+  dropArea.addEventListener("drop", handleDrop, false);
+
+  function handleDrop(e) {
+    const dt = e.dataTransfer;
+    const file = dt.files[0];
+
+    if (file && file.type.startsWith("image/")) {
+      selectedImage = file;
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        uploadedImagePreview.src = event.target.result;
+        uploadPreview.classList.remove("hidden");
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  // 页面加载时初始化画廊（保留原有图片）
+  window.addEventListener("load", function () {
+    // 这里可以添加代码从本地存储或服务器加载已保存的图片
+    // 目前示例中保留了原有图片的HTML结构
+  });
+})();
     </script>
 
     <!--图标-->>
