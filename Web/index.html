@@ -1161,24 +1161,38 @@
                             <span class="card-meta-signature">${signature}</span>
                         </div>
                     </div>`;
-                // 计算移动端目标高度：小提示标题（视作按钮）之前的高度
+                // 计算移动端目标高度：当选择图片时，基于“内容形式”区域测量并放大 1.2
                 let targetMobileMin = null;
                 const outerBox = document.querySelector('#create .bg-white.rounded-2xl');
                 if (window.matchMedia('(max-width: 767px)').matches) {
-                    const gridContainer = document.querySelector('#create .grid');
-                    const tipsPanel = gridContainer?.children?.[1];
-                    const tipsTitle = tipsPanel?.querySelector('h3');
-                    if (outerBox && tipsTitle) {
-                        const obRect = outerBox.getBoundingClientRect();
-                        const titleRect = tipsTitle.getBoundingClientRect();
-                        targetMobileMin = Math.max(0, Math.round(titleRect.top - obRect.top));
-                    } else {
-                        // 回退：使用发布按钮的位置
-                        const submitBtn = gratitudeForm.querySelector('button[type="submit"]');
-                        if (outerBox && submitBtn) {
+                    if (contentType === 'image') {
+                        // 定位“内容形式”所在的容器（包含其标签与单选按钮）
+                        const anyContentTypeInput = document.querySelector('input[name="contentType"]');
+                        const radiosRow = anyContentTypeInput?.closest('.flex'); // div.flex.space-x-4
+                        const contentTypeBlock = radiosRow?.parentElement; // 外层 <div>
+                        if (outerBox && contentTypeBlock) {
                             const obRect = outerBox.getBoundingClientRect();
-                            const btnRect = submitBtn.getBoundingClientRect();
-                            targetMobileMin = Math.max(0, Math.round(btnRect.top - obRect.top));
+                            const ctRect = contentTypeBlock.getBoundingClientRect();
+                            const base = Math.max(0, ctRect.top - obRect.top);
+                            targetMobileMin = Math.round(base * 1.3);
+                        }
+                    }
+                    // 非图片或上述未获取到时，回退到“小提示标题”或“发布按钮”
+                    if (!targetMobileMin) {
+                        const gridContainer = document.querySelector('#create .grid');
+                        const tipsPanel = gridContainer?.children?.[1];
+                        const tipsTitle = tipsPanel?.querySelector('h3');
+                        if (outerBox && tipsTitle) {
+                            const obRect = outerBox.getBoundingClientRect();
+                            const titleRect = tipsTitle.getBoundingClientRect();
+                            targetMobileMin = Math.max(0, Math.round(titleRect.top - obRect.top));
+                        } else {
+                            const submitBtn = gratitudeForm.querySelector('button[type="submit"]');
+                            if (outerBox && submitBtn) {
+                                const obRect = outerBox.getBoundingClientRect();
+                                const btnRect = submitBtn.getBoundingClientRect();
+                                targetMobileMin = Math.max(0, Math.round(btnRect.top - obRect.top));
+                            }
                         }
                     }
                 }
