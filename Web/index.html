@@ -283,8 +283,11 @@
                         <div class="mb-4">
                             <label for="storyImage" class="block text-gray-700 font-medium mb-1">故事配图 (可选)</label>
                             <input type="file" id="storyImage" accept="image/*" class="hidden" />
-                            <label for="storyImage" class="block w-full px-4 py-2 text-center border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                                <i class="fa fa-image mr-1"></i> 点击上传故事配图
+                            <label for="storyImage" class="block w-full px-4 py-2 text-center border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 min-h-[120px] flex items-center justify-center text-primary hover:text-primary/80">
+                                <div class="flex flex-col items-center">
+                                    <i class="fa fa-cloud-upload text-3xl mb-2"></i>
+                                    <p>点击或拖拽图片到这里</p>
+                                </div>
                             </label>
                             <div id="storyImagePreview" class="hidden mt-2">
                                 <img id="previewStoryImg" src="" alt="故事配图预览" class="w-full h-auto rounded-lg" />
@@ -486,7 +489,7 @@
                     </p>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-xl p-8 max-w-5xl mx-auto">
                     <div class="grid md:grid-cols-2 gap-8 items-start">
                         <div id="formArea">
                             <h3 class="text-xl font-bold mb-6">分享你的感恩</h3>
@@ -500,6 +503,11 @@
                                 <div>
                                     <label for="title" class="block text-gray-700 font-medium mb-2">标题</label>
                                     <input type="text" id="title" placeholder="例如：《深夜里的守候》" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50" />
+                                </div>
+
+                                <div>
+                                    <label for="signature" class="block text-gray-700 font-medium mb-2">署名 / 昵称</label>
+                                    <input type="text" id="signature" placeholder="例如：小李、阿明" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50" />
                                 </div>
 
                                 <div>
@@ -546,8 +554,8 @@
                             <!-- 贺卡预览与下载 -->
                             <div id="cardResultContainer" class="hidden mt-8">
                                 <div class="flex justify-center">
-                                    <div id="cardWrapper" class="p-4 rounded-[56px] overflow-hidden bg-gradient-to-br from-primary to-secondary shadow-2xl">
-                                        <div id="gratitudeCard" class="w-full max-w-[800px] bg-white rounded-[48px] overflow-hidden">
+                                    <div id="cardWrapper" class="w-full h-full p-1 md:p-2 rounded-[56px] overflow-hidden bg-gradient-to-br from-primary to-secondary shadow-2xl">
+                                        <div id="gratitudeCard" class="w-full h-full max-w-none bg-white rounded-[48px] overflow-hidden">
                                             <!-- 动态生成贺卡内容 -->
                                         </div>
                                     </div>
@@ -557,7 +565,7 @@
                                         <i class="fa fa-download mr-2"></i> 下载贺卡
                                     </button>
                                     <button id="closeCardBtn" class="px-5 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">
-                                        关闭预览
+                                        再来一张
                                     </button>
                                 </div>
                             </div>
@@ -1022,6 +1030,7 @@
                 
                 const recipient = document.getElementById('recipient').value.trim();
                 const title = document.getElementById('title').value.trim();
+                const signature = document.getElementById('signature').value.trim();
                 const content = document.getElementById('content').value.trim();
                 const contentType = document.querySelector('input[name="contentType"]:checked').value;
                 const previewImgEl = document.getElementById('previewImg');
@@ -1030,6 +1039,7 @@
                 // 表单验证
                 if (!recipient) { showModal('提示', '请输入感恩对象'); return; }
                 if (!title) { showModal('提示', '请输入标题'); return; }
+                if (!signature) { showModal('提示', '请输入署名或昵称'); return; }
                 if (!content) { showModal('提示', '请输入感恩内容'); return; }
                 
                 // 生成贺卡内容（包含圆角外缘的渐变边框）
@@ -1044,15 +1054,12 @@
                     <div class="px-4 md:px-8 pb-6 md:pb-8">
                         <div class="mx-auto my-3 md:my-4 w-24 h-[3px] bg-gradient-to-r from-primary to-secondary rounded-full"></div>
                         ${imageSrc ? `
-                        <div class="grid md:grid-cols-5 gap-6 items-start">
-                            <div class="md:col-span-2">
-                                <div class="rounded-2xl overflow-hidden shadow">
-                                    <img src="${imageSrc}" alt="贺卡图片" class="w-full h-auto object-cover" />
-                                </div>
-                            </div>
-                            <div class="md:col-span-3">
-                                <p class="text-gray-700 text-base md:text-lg leading-relaxed md:leading-loose break-words whitespace-pre-wrap max-w-prose">${content}</p>
-                            </div>
+                        <!-- 图片置顶并加大尺寸 -->
+                        <div class="rounded-2xl overflow-hidden shadow mb-6">
+                            <img src="${imageSrc}" alt="贺卡图片" class="w-full h-[360px] md:h-[560px] object-cover" />
+                        </div>
+                        <div class="max-w-prose mx-auto">
+                            <p class="text-gray-700 text-base md:text-lg leading-relaxed md:leading-loose break-words whitespace-pre-wrap">${content}</p>
                         </div>
                         ` : `
                         <div class="max-w-prose mx-auto">
@@ -1061,15 +1068,29 @@
                         `}
                         <div class="mt-8 flex items-center justify-between text-gray-500 text-sm">
                             <span>${new Date().toLocaleDateString()}</span>
-                            <span>蒲公英计划</span>
+                            <span>${signature}</span>
                         </div>
                     </div>`;
                 gratitudeCard.innerHTML = cardHeader + cardMain;
                 
-                // 展示预览容器
+                // 展示预览容器并隐藏其他元素，仅保留贺卡与操作按钮
                 const cardResultContainer = document.getElementById('cardResultContainer');
                 cardResultContainer.classList.remove('hidden');
                 cardResultContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                const formArea = document.getElementById('formArea');
+                formArea.querySelector('h3')?.classList.add('hidden');
+                gratitudeForm.classList.add('hidden');
+
+                const gridContainer = document.querySelector('#create .grid');
+                const tipsPanel = gridContainer?.children?.[1];
+                if (tipsPanel) tipsPanel.classList.add('hidden');
+                gridContainer?.classList.add('grid-cols-1','md:grid-cols-1');
+
+                const outerBox = document.querySelector('#create .bg-white.rounded-2xl');
+                outerBox?.classList.remove('max-w-4xl');
+                outerBox?.classList.add('max-w-5xl');
+                outerBox?.classList.add('min-h-[70vh]');
                 
                 // 显示发布成功提示
                 const successMessage = document.createElement('div');
@@ -1112,25 +1133,25 @@
                 }
             });
 
-            // 表达感恩图片拖拽上传支持
-            const gratitudeDropArea = document.querySelector('label[for="imageFile"]').parentElement;
-            ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
-                gratitudeDropArea.addEventListener(eventName, (e) => { e.preventDefault(); e.stopPropagation(); }, false);
-            });
-            function gHighlight() {
-                gratitudeDropArea.classList.add("border-primary");
-                gratitudeDropArea.classList.add("bg-primary/5");
-            }
-            function gUnhighlight() {
-                gratitudeDropArea.classList.remove("border-primary");
-                gratitudeDropArea.classList.remove("bg-primary/5");
-            }
-            gratitudeDropArea.addEventListener("dragenter", gHighlight);
-            gratitudeDropArea.addEventListener("dragover", gHighlight);
-            gratitudeDropArea.addEventListener("dragleave", gUnhighlight);
-            gratitudeDropArea.addEventListener("drop", function(e) {
-                gUnhighlight();
-                const dt = e.dataTransfer;
+            // 表达感恩图片拖拽上传支持（事件与高亮在 label 的父容器，与画廊一致）
+        const gratitudeDropArea = document.querySelector('label[for="imageFile"]').parentElement;
+        ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+            gratitudeDropArea.addEventListener(eventName, (e) => { e.preventDefault(); e.stopPropagation(); }, false);
+        });
+        function gHighlight() {
+            gratitudeDropArea.classList.add("border-primary");
+            gratitudeDropArea.classList.add("bg-primary/5");
+        }
+        function gUnhighlight() {
+            gratitudeDropArea.classList.remove("border-primary");
+            gratitudeDropArea.classList.remove("bg-primary/5");
+        }
+        gratitudeDropArea.addEventListener("dragenter", gHighlight);
+        gratitudeDropArea.addEventListener("dragover", gHighlight);
+        gratitudeDropArea.addEventListener("dragleave", gUnhighlight);
+        gratitudeDropArea.addEventListener("drop", function(e) {
+            gUnhighlight();
+            const dt = e.dataTransfer;
                 const file = dt.files && dt.files[0];
                 if (file && file.type.startsWith("image/")) {
                     // 切换到图片模式并显示上传区
@@ -1177,7 +1198,22 @@
             });
 
             closeCardBtn?.addEventListener('click', function() {
-                document.getElementById('cardResultContainer').classList.add('hidden');
+                const cardResultContainer = document.getElementById('cardResultContainer');
+                cardResultContainer.classList.add('hidden');
+
+                const formArea = document.getElementById('formArea');
+                formArea.querySelector('h3')?.classList.remove('hidden');
+                document.getElementById('gratitudeForm').classList.remove('hidden');
+
+                const gridContainer = document.querySelector('#create .grid');
+                const tipsPanel = gridContainer?.children?.[1];
+                if (tipsPanel) tipsPanel.classList.remove('hidden');
+                gridContainer?.classList.remove('grid-cols-1','md:grid-cols-1');
+
+                const outerBox = document.querySelector('#create .bg-white.rounded-2xl');
+                outerBox?.classList.remove('max-w-5xl');
+                outerBox?.classList.add('max-w-4xl');
+                outerBox?.classList.remove('min-h-[70vh]');
             });
         });
         
@@ -1615,6 +1651,94 @@
                 reader.readAsDataURL(file);
             }
         });
+
+        // 为故事配图增加拖拽上传与文件夹解析支持（事件与高亮仅在虚线 label 内）
+        // 注意：页面存在两个 for="storyImage" 的 label，这里只选取紧邻隐藏文件输入的虚线框 label
+        const storyDropArea = document.querySelector('#storyImage + label');
+        function sPreventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
+        ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+            storyDropArea.addEventListener(eventName, sPreventDefaults, false);
+        });
+        ["dragenter", "dragover"].forEach((eventName) => {
+            storyDropArea.addEventListener(eventName, sHighlight, false);
+        });
+        ["dragleave", "drop"].forEach((eventName) => {
+            storyDropArea.addEventListener(eventName, sUnhighlight, false);
+        });
+        function sHighlight() {
+            storyDropArea.classList.add("border-primary");
+            storyDropArea.classList.add("bg-primary/5");
+        }
+        function sUnhighlight() {
+            storyDropArea.classList.remove("border-primary");
+            storyDropArea.classList.remove("bg-primary/5");
+        }
+        storyDropArea.addEventListener("drop", async function (e) {
+            sUnhighlight();
+            const dt = e.dataTransfer;
+
+            // 尝试使用目录项接口解析文件夹内的图片
+            if (dt.items && dt.items.length) {
+                const files = [];
+                async function walkEntry(entry) {
+                    return new Promise((resolve) => {
+                        if (entry.isFile) {
+                            entry.file((file) => {
+                                if (file && file.type && file.type.startsWith("image/")) {
+                                    files.push(file);
+                                }
+                                resolve();
+                            });
+                        } else if (entry.isDirectory) {
+                            const reader = entry.createReader();
+                            const readEntries = () => {
+                                reader.readEntries(async (entries) => {
+                                    if (!entries.length) {
+                                        resolve();
+                                    } else {
+                                        await Promise.all(entries.map((e) => walkEntry(e)));
+                                        readEntries();
+                                    }
+                                });
+                            };
+                            readEntries();
+                        } else {
+                            resolve();
+                        }
+                    });
+                }
+                await Promise.all(
+                    Array.from(dt.items).map((item) => {
+                        const entry = item.webkitGetAsEntry ? item.webkitGetAsEntry() : null;
+                        return entry ? walkEntry(entry) : Promise.resolve();
+                    })
+                );
+
+                const file = files[0] || (dt.files && dt.files[0]);
+                if (file && file.type.startsWith("image/")) {
+                    storyImageFile = file;
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        previewStoryImg.src = event.target.result;
+                        storyImagePreview.classList.remove("hidden");
+                    };
+                    reader.readAsDataURL(file);
+                }
+            } else if (dt.files && dt.files.length) {
+                // 回退：直接处理拖拽的文件
+                const file = dt.files[0];
+                if (file && file.type.startsWith("image/")) {
+                    storyImageFile = file;
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        previewStoryImg.src = event.target.result;
+                        storyImagePreview.classList.remove("hidden");
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        }, false);
+
 
         // 移除故事配图
         removeStoryImg.addEventListener("click", function () {
