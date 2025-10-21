@@ -552,15 +552,15 @@
                             </form>
 
                             <!-- 贺卡预览与下载 -->
-                            <div id="cardResultContainer" class="hidden mt-8">
-                                <div class="flex justify-center">
+                            <div id="cardResultContainer" class="hidden mt-8 flex flex-col flex-1 min-h-0">
+                                <div class="flex-1 min-h-0 flex items-stretch justify-center">
                                     <div id="cardWrapper" class="w-full h-full p-1 md:p-2 rounded-[56px] overflow-hidden bg-gradient-to-br from-primary to-secondary shadow-2xl">
-                                        <div id="gratitudeCard" class="w-full h-full max-w-none bg-white rounded-[48px] overflow-hidden">
+                                        <div id="gratitudeCard" class="w-full h-full max-w-none bg-white rounded-[48px] overflow-hidden flex flex-col">
                                             <!-- 动态生成贺卡内容 -->
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-4 flex justify-center gap-3">
+                                <div class="mt-auto pt-4 flex justify-center gap-3">
                                     <button id="downloadCardBtn" class="px-5 py-2 bg-primary text-white rounded-lg btn-transition">
                                         <i class="fa fa-download mr-2"></i> 下载贺卡
                                     </button>
@@ -1007,6 +1007,14 @@
                     // 更新导航链接激活状态
                     updateActiveNavLink(sectionId);
                     
+                    // 当打开“表达感恩”板块时，记录外层容器的初始高度作为最小高度
+                    if (sectionId === 'create') {
+                        const outerBox = document.querySelector('#create .bg-white.rounded-2xl');
+                        if (outerBox && !outerBox.dataset.baseMinHeight) {
+                            outerBox.dataset.baseMinHeight = String(outerBox.offsetHeight || 0);
+                        }
+                    }
+                    
                     // 如果是移动端，点击后关闭菜单
                     const mobileMenu = document.getElementById('mobileMenu');
                     if (!mobileMenu.classList.contains('opacity-0')) {
@@ -1050,23 +1058,24 @@
                         <h5 class="text-2xl md:text-3xl font-bold text-primary tracking-tight">${recipient}</h5>
                         <p class="mt-1 text-base md:text-lg font-medium text-gray-800 leading-snug">${title}</p>
                     </div>`;
+                const mainContainerClass = imageSrc ? 'px-4 md:px-8 pb-6 md:pb-8 flex-1 flex flex-col justify-center' : 'px-4 md:px-8 pb-6 md:pb-8 flex-1 flex flex-col';
                 const cardMain = `
-                    <div class="px-4 md:px-8 pb-6 md:pb-8">
+                    <div class="${mainContainerClass}">
                         <div class="mx-auto my-3 md:my-4 w-24 h-[3px] bg-gradient-to-r from-primary to-secondary rounded-full"></div>
                         ${imageSrc ? `
                         <!-- 图片置顶并加大尺寸 -->
                         <div class="rounded-2xl overflow-hidden shadow mb-6">
-                            <img src="${imageSrc}" alt="贺卡图片" class="w-full h-[360px] md:h-[560px] object-cover" />
+                            <img src="${imageSrc}" alt="贺卡图片" class="w-full h-[420px] md:h-[640px] object-cover" />
                         </div>
                         <div class="max-w-prose mx-auto">
-                            <p class="text-gray-700 text-base md:text-lg leading-relaxed md:leading-loose break-words whitespace-pre-wrap">${content}</p>
+                            <p class="text-gray-700 text-left text-base md:text-lg leading-relaxed md:leading-loose break-words whitespace-pre-wrap">${content}</p>
                         </div>
                         ` : `
                         <div class="max-w-prose mx-auto">
-                            <p class="text-gray-700 text-base md:text-lg leading-relaxed md:leading-loose break-words whitespace-pre-wrap">${content}</p>
+                            <p class="text-gray-700 text-left text-base md:text-lg leading-relaxed md:leading-loose break-words whitespace-pre-wrap">${content}</p>
                         </div>
                         `}
-                        <div class="mt-8 flex items-center justify-between text-gray-500 text-sm">
+                        <div class="mt-auto pt-6 flex items-center justify-between text-gray-500 text-sm">
                             <span>${new Date().toLocaleDateString()}</span>
                             <span>${signature}</span>
                         </div>
@@ -1081,16 +1090,21 @@
                 const formArea = document.getElementById('formArea');
                 formArea.querySelector('h3')?.classList.add('hidden');
                 gratitudeForm.classList.add('hidden');
+                formArea.classList.add('flex','flex-col','h-full');
 
                 const gridContainer = document.querySelector('#create .grid');
                 const tipsPanel = gridContainer?.children?.[1];
                 if (tipsPanel) tipsPanel.classList.add('hidden');
                 gridContainer?.classList.add('grid-cols-1','md:grid-cols-1');
+                gridContainer?.classList.add('h-full');
+                gridContainer?.classList.add('flex-1');
 
                 const outerBox = document.querySelector('#create .bg-white.rounded-2xl');
+                const baseMin = outerBox?.dataset?.baseMinHeight ? parseInt(outerBox.dataset.baseMinHeight, 10) : (outerBox?.offsetHeight || 0);
+                if (baseMin > 0) { outerBox.style.minHeight = `${baseMin}px`; }
+                outerBox?.classList.add('flex','flex-col');
                 outerBox?.classList.remove('max-w-4xl');
                 outerBox?.classList.add('max-w-5xl');
-                outerBox?.classList.add('min-h-[70vh]');
                 
                 // 显示发布成功提示
                 const successMessage = document.createElement('div');
@@ -1204,16 +1218,20 @@
                 const formArea = document.getElementById('formArea');
                 formArea.querySelector('h3')?.classList.remove('hidden');
                 document.getElementById('gratitudeForm').classList.remove('hidden');
+                formArea.classList.remove('flex','flex-col','h-full');
 
                 const gridContainer = document.querySelector('#create .grid');
                 const tipsPanel = gridContainer?.children?.[1];
                 if (tipsPanel) tipsPanel.classList.remove('hidden');
                 gridContainer?.classList.remove('grid-cols-1','md:grid-cols-1');
+                gridContainer?.classList.remove('h-full');
+                gridContainer?.classList.remove('flex-1');
 
                 const outerBox = document.querySelector('#create .bg-white.rounded-2xl');
+                outerBox?.classList.remove('flex','flex-col');
                 outerBox?.classList.remove('max-w-5xl');
                 outerBox?.classList.add('max-w-4xl');
-                outerBox?.classList.remove('min-h-[70vh]');
+                outerBox.style.minHeight = '';
             });
         });
         
