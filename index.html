@@ -78,6 +78,11 @@
                 max-height: 90vh;
                 overflow-y: auto;
             }
+            /* 故事详情弹窗样式：与画廊一致，支持滚动阅读 */
+            .story-modal-content {
+                max-height: 90vh;
+                overflow-y: auto;
+            }
             .gallery-image-container {
                 position: relative;
                 width: 100%;
@@ -796,7 +801,7 @@
     <!-- 故事详情弹窗 -->
     <div id="storyDetailModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
         <div class="modal-backdrop absolute inset-0"></div>
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-4 z-10 transform transition-all duration-300 scale-95 opacity-0" id="storyDetailContent">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-4 z-10 transform transition-all duration-300 scale-95 opacity-0 story-modal-content" id="storyDetailContent">
             <div class="p-6 border-b border-gray-100 flex justify-between items-center">
                 <h3 class="text-xl font-bold text-primary" id="storyDetailTitle">故事标题</h3>
                 <button id="storyDetailClose" class="text-gray-400 hover:text-gray-600">
@@ -2559,12 +2564,14 @@
         }
         
         /* 隐藏画廊图片详情弹窗的滚动条 */
-        .gallery-modal-content {
+        .gallery-modal-content,
+        .story-modal-content {
             scrollbar-width: none; /* Firefox */
             -ms-overflow-style: none; /* IE 和 Edge */
         }
         
-        .gallery-modal-content::-webkit-scrollbar {
+        .gallery-modal-content::-webkit-scrollbar,
+        .story-modal-content::-webkit-scrollbar {
             display: none; /* Chrome, Safari 和 Opera */
         }
         
